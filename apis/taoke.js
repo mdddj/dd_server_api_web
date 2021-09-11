@@ -100,7 +100,7 @@ var TaokeApi = /** @class */ (function () {
                             switch (_a.label) {
                                 case 0: return [4 /*yield*/, (0, umi_request_1.default)("" + ((taoke !== null && taoke !== void 0 ? taoke : true) ? this.url : this._host) + url, {
                                         method: "GET",
-                                        data: param
+                                        params: param
                                     })];
                                 case 1:
                                     result = _a.sent();

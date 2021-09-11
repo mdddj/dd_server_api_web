@@ -68,7 +68,7 @@ class TaokeApi {
         return new Promise<T>(async (resolve, reject) => {
             let result = await request<Result<string>>( `${(taoke ?? true) ? this.url : this._host}${url}`,{
                 method: "GET",
-                data: param
+                params: param
             })
             successResultHandle<string>(result, data => {
                 resolve(tkDataToObject<T>(data))
