@@ -18,12 +18,21 @@ class DdServerApiByWeb {
     
     _host: string | undefined
     
+    /**
+     * 鉴权token
+     */
+    _token: string | undefined
+    
     set host(v: string) {
         this._host = v
     }
     
     get host(): string {
         return this._host ?? ServerUtil.getInstance().host
+    }
+    
+    set token(v: string) {
+        this._token = v
     }
     
     /**
@@ -54,11 +63,19 @@ class DdServerApiByWeb {
         let param = method === 'GET' ? data : undefined
         let postData = method === 'POST' || method === 'DELETE' ? data : undefined
         
+        let headers
+        if (this._token) {
+            headers = {
+                'Authorization': this._token
+            }
+        }
+        
         
         return request<T>(`${this.host}${url}`, {
             method: method ?? 'GET',
             params: param,
-            data: postData
+            data: postData,
+            headers
         })
     }
     
@@ -74,7 +91,7 @@ class DdServerApiByWeb {
     /**
      * 退出登录
      */
-    async logout() : Promise<Result<string>> {
+    async logout(): Promise<Result<string>> {
         return this.requestT<Result<string>>('/api/user/logout', {}, 'POST')
     }
     
@@ -94,7 +111,7 @@ class DdServerApiByWeb {
      * 发布一篇新博客
      */
     async pushNewBlog(params: PushNewBlogParams) {
-        return this.requestT<BlogPushNewResultData>( '/api/auth/blog-push-new', params, 'POST');
+        return this.requestT<BlogPushNewResultData>('/api/auth/blog-push-new', params, 'POST');
     }
     
     /**
@@ -102,7 +119,7 @@ class DdServerApiByWeb {
      * @param blogId 博客id
      */
     async deleteBlog(blogId: number) {
-        return this.requestT( '/api/blog/delete', {
+        return this.requestT('/api/blog/delete', {
             id: blogId,
         }, 'DELETE');
     }
@@ -110,14 +127,14 @@ class DdServerApiByWeb {
     /**
      * 获取分类列表
      */
-    async getBlogCategorys() :Promise<Result<Category[]>>{
-        return this.requestT<Result<Category[]>>( '/api/blog/category-list');
+    async getBlogCategorys(): Promise<Result<Category[]>> {
+        return this.requestT<Result<Category[]>>('/api/blog/category-list');
     }
     
     /**
      * 获取全部的标签列表
      */
-    async getBlogTags() : Promise<Result<Tag[]>> {
+    async getBlogTags(): Promise<Result<Tag[]>> {
         return request<Result<Tag[]>>(this._host + '/api/blog/tags', {method: 'GET'});
     }
     

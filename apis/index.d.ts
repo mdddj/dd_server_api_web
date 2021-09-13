@@ -13,8 +13,13 @@ import { ArchiveModel, Tag } from "./model/ArchiveModel";
  */
 declare class DdServerApiByWeb {
     _host: string | undefined;
+    /**
+     * 鉴权token
+     */
+    _token: string | undefined;
     set host(v: string);
     get host(): string;
+    set token(v: string);
     /**
      * 私有化类构造
      * @constructor

@@ -58,6 +58,13 @@ var DdServerApiByWeb = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(DdServerApiByWeb.prototype, "token", {
+        set: function (v) {
+            this._token = v;
+        },
+        enumerable: false,
+        configurable: true
+    });
     /**
      * 私有化类构造
      * @constructor
@@ -80,14 +87,20 @@ var DdServerApiByWeb = /** @class */ (function () {
      */
     DdServerApiByWeb.prototype.requestT = function (url, data, method) {
         return __awaiter(this, void 0, void 0, function () {
-            var param, postData;
+            var param, postData, headers;
             return __generator(this, function (_a) {
                 param = method === 'GET' ? data : undefined;
                 postData = method === 'POST' || method === 'DELETE' ? data : undefined;
+                if (this._token) {
+                    headers = {
+                        'Authorization': this._token
+                    };
+                }
                 return [2 /*return*/, (0, umi_request_1.default)("" + this.host + url, {
                         method: method !== null && method !== void 0 ? method : 'GET',
                         params: param,
-                        data: postData
+                        data: postData,
+                        headers: headers
                     })];
             });
         });
