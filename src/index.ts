@@ -31,7 +31,7 @@ class DdServerApiByWeb {
         return this._host ?? ServerUtil.getInstance().host
     }
     
-    set token(v: string) {
+    set token(v: string | undefined) {
         this._token = v
     }
     
@@ -135,7 +135,7 @@ class DdServerApiByWeb {
      * 获取全部的标签列表
      */
     async getBlogTags(): Promise<Result<Tag[]>> {
-        return request<Result<Tag[]>>(this._host + '/api/blog/tags', {method: 'GET'});
+        return this.requestT<Result<Tag[]>>('/api/blog/tags');
     }
     
     /**
@@ -143,7 +143,7 @@ class DdServerApiByWeb {
      * @param id  博客id
      */
     async getBlogDetailById(id: number) {
-        return request(this._host + '/api/blog/get/' + id, {method: 'GET'});
+        return this.requestT<Result<BlogData>>('/api/blog/get/' + id);
     }
     
     /**
@@ -153,10 +153,7 @@ class DdServerApiByWeb {
      * @constructor
      */
     async getCategoryForTableData(pageModel: PageParam, category?: Category) {
-        return request(this._host + '/api/blog/category/list', {
-            method: 'GET',
-            params: Object.assign(pageModel, category),
-        });
+        return this.requestT('/api/blog/category/list', Object.assign(pageModel, category));
     }
     
     /**
@@ -165,10 +162,7 @@ class DdServerApiByWeb {
      * @constructor
      */
     async saveAndUpdateBlogCategory(category: Category): Promise<Result<Category>> {
-        return request<Result<Category>>(this._host + '/api/auth/blog-category-save', {
-            method: 'POST',
-            data: category,
-        });
+        return this.requestT<Result<Category>>('/api/auth/blog-category-save', category, 'POST');
     }
     
     /**
@@ -177,10 +171,7 @@ class DdServerApiByWeb {
      * @constructor
      */
     async deleteBlogCategory(id: number) {
-        return request(this._host + '/api/auth/blog-category-delete', {
-            data: {id},
-            method: 'DELETE',
-        });
+        return this.requestT('/api/auth/blog-category-delete', id, 'DELETE');
     }
     
     
@@ -189,10 +180,7 @@ class DdServerApiByWeb {
      * @param data 数据
      */
     async uploadFile(data: any) {
-        return request(this._host + '/api/auth/file-upload', {
-            method: 'POST',
-            data: data,
-        });
+        return this.requestT('/api/auth/file-upload', data, 'POST');
     }
     
     /**
@@ -201,12 +189,7 @@ class DdServerApiByWeb {
      * @constructor
      */
     async getFolders(id?: number): Promise<Result<ResCategory[]>> {
-        return request<Result<ResCategory[]>>(this._host + '/api/file/get-folders', {
-            method: 'GET',
-            params: {
-                id,
-            },
-        });
+        return this.requestT<Result<ResCategory[]>>('/api/file/get-folders', {id});
     }
     
     /**
@@ -219,10 +202,7 @@ class DdServerApiByWeb {
         folderId: number,
         pageModel: PageParam,
     ): Promise<Result<Page<FileInfo>>> {
-        return request<Result<Page<FileInfo>>>(this._host + '/api/file/get-files', {
-            method: 'GET',
-            params: Object.assign({id: folderId}, pageModel),
-        });
+        return this.requestT<Result<Page<FileInfo>>>('/api/file/get-files', Object.assign({id: folderId}, pageModel));
     }
     
     /**
@@ -256,13 +236,10 @@ class DdServerApiByWeb {
         page: PagerModel;
         list: ResCategory[];
     }>> {
-        return request<Result<{
+        return this.requestT<Result<{
             page: PagerModel;
             list: ResCategory[];
-        }>>(this._host + '/api/res/list', {
-            method: 'GET',
-            params: Object.assign(pageModel, resCategory),
-        });
+        }>>('/api/res/list', Object.assign(pageModel, resCategory));
     }
     
     /**
@@ -271,10 +248,7 @@ class DdServerApiByWeb {
      * @constructor
      */
     async saveOrUpdateResourceCategory(category: ResCategory) {
-        return request(this._host + '/api/auth/res-cate-save', {
-            method: 'POST',
-            data: category,
-        });
+        return this.requestT('/api/auth/res-cate-save', category, 'POST');
     }
     
     /**
@@ -283,10 +257,7 @@ class DdServerApiByWeb {
      * @constructor
      */
     async deleteResourceCategoryById(category: ResCategory) {
-        return request(this._host + '/api/auth/res-cate-delete', {
-            method: 'DELETE',
-            data: category,
-        });
+        return this.requestT('/api/auth/res-cate-delete', category, 'DELETE');
     }
     
     /**
@@ -295,11 +266,7 @@ class DdServerApiByWeb {
      * @constructor
      */
     async findResCategoryListByNameLike(name: string) {
-        return request(this._host + '/api/res/like-list', {
-            params: {
-                name,
-            },
-        });
+        return this.requestT('/api/res/like-list', {name});
     }
     
     /**
@@ -308,10 +275,7 @@ class DdServerApiByWeb {
      * @constructor
      */
     async saveOrUpdateResourcesModel(model: ResourceModel) {
-        return request(this._host + '/api/auth/resource-save', {
-            method: 'POST',
-            data: model,
-        });
+        return this.requestT('/api/auth/resource-save', model, 'POST');
     }
     
     /**
@@ -328,16 +292,13 @@ class DdServerApiByWeb {
         list: TextModel[];
         page: PagerModel;
     }>> {
-        return request<Result<{
+        return this.requestT<Result<{
             list: TextModel[];
             page: PagerModel;
         }>>(`/api/text/list`, {
-            method: 'GET',
-            params: {
-                page,
-                pageSize,
-                name,
-            },
+            page,
+            pageSize,
+            name,
         });
     }
     
@@ -346,10 +307,7 @@ class DdServerApiByWeb {
      * @param text  字典对象
      */
     async saveText(text: TextModel): Promise<Result<TextModel>> {
-        return request<Result<TextModel>>('/api/auth/text-update', {
-            method: 'POST',
-            data: text,
-        });
+        return this.requestT<Result<TextModel>>('/api/auth/text-update', text, 'POST');
     }
     
     /**
@@ -357,12 +315,7 @@ class DdServerApiByWeb {
      * @param id 主键
      */
     async deleteTextById(id: string) {
-        return request<Result<string>>('/api/auth/text-delete', {
-            data: {
-                id,
-            },
-            method: 'DELETE',
-        });
+        return this.requestT<Result<string>>('/api/auth/text-delete', {id}, 'DELETE');
     }
     
     /**
@@ -374,8 +327,8 @@ class DdServerApiByWeb {
         page: number,
         pageSize: number,
     ): Promise<Result<BlogListData>> {
-        return request<Result<BlogListData>>(
-            this._host + '/api/blog/list?page=' + page + '&pageSize=' + pageSize,
+        return this.requestT<Result<BlogListData>>(
+            '/api/blog/list?page=' + page + '&pageSize=' + pageSize,
         );
     }
     
@@ -383,7 +336,7 @@ class DdServerApiByWeb {
      * 获取博客归档数据
      */
     async getArchives(): Promise<Result<ArchiveModel>> {
-        return request<Result<ArchiveModel>>(`${this._host}/api/blog/statistics`);
+        return this.requestT<Result<ArchiveModel>>(`/api/blog/statistics`);
     }
     
     /**
@@ -391,7 +344,7 @@ class DdServerApiByWeb {
      * @param alias 博客别名
      */
     async getBlogWithAlias(alias: string): Promise<Result<BlogData>> {
-        return request<Result<BlogData>>(`${this._host}/api/blog/alias?alias=${alias}`);
+        return this.requestT<Result<BlogData>>(`/api/blog/alias?alias=${alias}`);
     }
     
     /**
@@ -403,8 +356,8 @@ class DdServerApiByWeb {
     async getTextByName(
         name: string,
     ): Promise<Result<TextModel>> {
-        return request<Result<TextModel>>(
-            `${this._host}/api/blog/text?name=${name}`,
+        return this.requestT<Result<TextModel>>(
+            `/api/blog/text?name=${name}`,
         );
     }
     
@@ -415,10 +368,7 @@ class DdServerApiByWeb {
      * @param pageModel 分页数据
      */
     async getBlogsByTagId(tagId: number, pageModel: PageParam): Promise<Result<Page<BlogData>>> {
-        return request<Result<Page<BlogData>>>(this._host + '/api/blog/tag/blogs', {
-                method: 'GET',
-                params: Object.assign({tagId}, pageModel)
-            }
+        return this.requestT<Result<Page<BlogData>>>('/api/blog/tag/blogs', Object.assign({tagId}, pageModel)
         )
     }
     
@@ -428,10 +378,7 @@ class DdServerApiByWeb {
      * @param pageModel 分类数据
      */
     async getBlogsByCategoryId(categoryId: number, pageModel: PageParam): Promise<Result<Page<BlogData>>> {
-        return request<Result<Page<BlogData>>>(this._host + '/api/blog/category/blogs', {
-            method: 'GET',
-            params: Object.assign({categoryId}, pageModel)
-        })
+        return this.requestT<Result<Page<BlogData>>>('/api/blog/category/blogs', Object.assign({categoryId}, pageModel))
     }
     
     
@@ -441,10 +388,7 @@ class DdServerApiByWeb {
      * @param pageModel 分类数据
      */
     async getBlogsByMonth(month: string, pageModel: PageParam): Promise<Result<Page<BlogData>>> {
-        return request<Result<Page<BlogData>>>(this._host + '/api/blog/month/blogs', {
-            method: 'GET',
-            params: Object.assign({month}, pageModel)
-        })
+        return this.requestT<Result<Page<BlogData>>>(this._host + '/api/blog/month/blogs', Object.assign({month}, pageModel))
     }
     
 }

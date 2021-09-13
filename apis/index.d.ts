@@ -19,7 +19,7 @@ declare class DdServerApiByWeb {
     _token: string | undefined;
     set host(v: string);
     get host(): string;
-    set token(v: string);
+    set token(v: string | undefined);
     /**
      * 私有化类构造
      * @constructor
