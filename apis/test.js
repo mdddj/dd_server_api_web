@@ -7,6 +7,7 @@ var index_1 = __importDefault(require("./index"));
 var ResultUtil_1 = require("./utils/ResultUtil");
 var api = index_1.default.getInstance();
 api.host = 'https://itbug.shop';
+api.token = '12121212';
 // api.getBlogList(1,10).then(value => {
 //     console.log(value)
 // })

@@ -1,5 +1,5 @@
 import ServerUtil from "./utils/ServerUtil";
-import request from "umi-request";
+import request, {extend} from "umi-request";
 import {Page, PagerModel, Result} from "./utils/ResultUtil";
 import {User} from "./model/UserModel";
 import PushNewBlogParams from "./model/param/PushNewBlogParamsModel";
@@ -11,10 +11,16 @@ import {ResourceModel} from "./model/ResourceModel";
 import {TextModel} from "./model/TextModel";
 import {ArchiveModel, Tag} from "./model/ArchiveModel";
 
+
+interface TokenHandle {
+    tokenGen(): string | undefined;
+}
+
 /**
  * 接口访问类
  */
 class DdServerApiByWeb {
+    
     
     _host: string | undefined
     
@@ -35,6 +41,10 @@ class DdServerApiByWeb {
         this._token = v
     }
     
+    get token() {
+        return this._token
+    }
+    
     /**
      * 私有化类构造
      * @constructor
@@ -52,6 +62,24 @@ class DdServerApiByWeb {
         return this._instance ?? new DdServerApiByWeb()
     }
     
+    
+    createClient() {
+        let client = extend({});
+        if (this.token) {
+            
+            const authHeader = {
+                Authorization: this.token,
+            };
+            client.interceptors.request.use((url, options) => {
+                return {
+                    url,
+                    options: {...options, headers: authHeader, interceptors: true}
+                }
+            }, {global: false})
+        }
+        return client;
+    }
+    
     /**
      * 封装通用的请求方法
      * @param url   访问url
@@ -63,19 +91,11 @@ class DdServerApiByWeb {
         let param = method === 'GET' ? data : undefined
         let postData = method === 'POST' || method === 'DELETE' ? data : undefined
         
-        let headers
-        if (this._token) {
-            headers = {
-                'Authorization': this._token
-            }
-        }
-        
-        
-        return request<T>(`${this.host}${url}`, {
+        let client = this.createClient()
+        return client<T>(`${this.host}${url}`, {
             method: method ?? 'GET',
             params: param,
             data: postData,
-            headers
         })
     }
     

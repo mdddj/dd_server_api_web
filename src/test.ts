@@ -3,6 +3,7 @@ import {successResultHandle} from "./utils/ResultUtil";
 
 let api  = DdTaokeSdk.getInstance()
 api.host = 'https://itbug.shop'
+api.token = '12121212'
 
 // api.getBlogList(1,10).then(value => {
 //     console.log(value)

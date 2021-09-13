@@ -1,4 +1,5 @@
 import { PagerModel } from "../../utils/ResultUtil";
+import { Tag } from "../ArchiveModel";
 export interface BlogPushNewResultData {
     state: number;
     message: string;
@@ -13,6 +14,8 @@ export interface BlogData {
     author: string;
     thumbnail: null;
     dateString: string;
+    alias: string | undefined;
+    tags: Tag[];
 }
 export interface Category {
     id: number;

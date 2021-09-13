@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -40,7 +51,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var ServerUtil_1 = __importDefault(require("./utils/ServerUtil"));
-var umi_request_1 = __importDefault(require("umi-request"));
+var umi_request_1 = require("umi-request");
 /**
  * 接口访问类
  */
@@ -59,6 +70,9 @@ var DdServerApiByWeb = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(DdServerApiByWeb.prototype, "token", {
+        get: function () {
+            return this._token;
+        },
         set: function (v) {
             this._token = v;
         },
@@ -79,6 +93,21 @@ var DdServerApiByWeb = /** @class */ (function () {
         var _a;
         return (_a = this._instance) !== null && _a !== void 0 ? _a : new DdServerApiByWeb();
     };
+    DdServerApiByWeb.prototype.createClient = function () {
+        var client = (0, umi_request_1.extend)({});
+        if (this.token) {
+            var authHeader_1 = {
+                Authorization: this.token,
+            };
+            client.interceptors.request.use(function (url, options) {
+                return {
+                    url: url,
+                    options: __assign(__assign({}, options), { headers: authHeader_1, interceptors: true })
+                };
+            }, { global: false });
+        }
+        return client;
+    };
     /**
      * 封装通用的请求方法
      * @param url   访问url
@@ -87,20 +116,15 @@ var DdServerApiByWeb = /** @class */ (function () {
      */
     DdServerApiByWeb.prototype.requestT = function (url, data, method) {
         return __awaiter(this, void 0, void 0, function () {
-            var param, postData, headers;
+            var param, postData, client;
             return __generator(this, function (_a) {
                 param = method === 'GET' ? data : undefined;
                 postData = method === 'POST' || method === 'DELETE' ? data : undefined;
-                if (this._token) {
-                    headers = {
-                        'Authorization': this._token
-                    };
-                }
-                return [2 /*return*/, (0, umi_request_1.default)("" + this.host + url, {
+                client = this.createClient();
+                return [2 /*return*/, client("" + this.host + url, {
                         method: method !== null && method !== void 0 ? method : 'GET',
                         params: param,
                         data: postData,
-                        headers: headers
                     })];
             });
         });
@@ -180,7 +204,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getBlogTags = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + '/api/blog/tags', { method: 'GET' })];
+                return [2 /*return*/, this.requestT('/api/blog/tags')];
             });
         });
     };
@@ -191,7 +215,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getBlogDetailById = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + '/api/blog/get/' + id, { method: 'GET' })];
+                return [2 /*return*/, this.requestT('/api/blog/get/' + id)];
             });
         });
     };
@@ -204,10 +228,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getCategoryForTableData = function (pageModel, category) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + '/api/blog/category/list', {
-                        method: 'GET',
-                        params: Object.assign(pageModel, category),
-                    })];
+                return [2 /*return*/, this.requestT('/api/blog/category/list', Object.assign(pageModel, category))];
             });
         });
     };
@@ -219,10 +240,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.saveAndUpdateBlogCategory = function (category) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + '/api/auth/blog-category-save', {
-                        method: 'POST',
-                        data: category,
-                    })];
+                return [2 /*return*/, this.requestT('/api/auth/blog-category-save', category, 'POST')];
             });
         });
     };
@@ -234,10 +252,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.deleteBlogCategory = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + '/api/auth/blog-category-delete', {
-                        data: { id: id },
-                        method: 'DELETE',
-                    })];
+                return [2 /*return*/, this.requestT('/api/auth/blog-category-delete', id, 'DELETE')];
             });
         });
     };
@@ -248,10 +263,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.uploadFile = function (data) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + '/api/auth/file-upload', {
-                        method: 'POST',
-                        data: data,
-                    })];
+                return [2 /*return*/, this.requestT('/api/auth/file-upload', data, 'POST')];
             });
         });
     };
@@ -263,12 +275,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getFolders = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + '/api/file/get-folders', {
-                        method: 'GET',
-                        params: {
-                            id: id,
-                        },
-                    })];
+                return [2 /*return*/, this.requestT('/api/file/get-folders', { id: id })];
             });
         });
     };
@@ -281,10 +288,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getFilesWithFolderId = function (folderId, pageModel) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + '/api/file/get-files', {
-                        method: 'GET',
-                        params: Object.assign({ id: folderId }, pageModel),
-                    })];
+                return [2 /*return*/, this.requestT('/api/file/get-files', Object.assign({ id: folderId }, pageModel))];
             });
         });
     };
@@ -318,10 +322,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getResourceCategoryList = function (pageModel, resCategory) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + '/api/res/list', {
-                        method: 'GET',
-                        params: Object.assign(pageModel, resCategory),
-                    })];
+                return [2 /*return*/, this.requestT('/api/res/list', Object.assign(pageModel, resCategory))];
             });
         });
     };
@@ -333,10 +334,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.saveOrUpdateResourceCategory = function (category) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + '/api/auth/res-cate-save', {
-                        method: 'POST',
-                        data: category,
-                    })];
+                return [2 /*return*/, this.requestT('/api/auth/res-cate-save', category, 'POST')];
             });
         });
     };
@@ -348,10 +346,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.deleteResourceCategoryById = function (category) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + '/api/auth/res-cate-delete', {
-                        method: 'DELETE',
-                        data: category,
-                    })];
+                return [2 /*return*/, this.requestT('/api/auth/res-cate-delete', category, 'DELETE')];
             });
         });
     };
@@ -363,11 +358,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.findResCategoryListByNameLike = function (name) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + '/api/res/like-list', {
-                        params: {
-                            name: name,
-                        },
-                    })];
+                return [2 /*return*/, this.requestT('/api/res/like-list', { name: name })];
             });
         });
     };
@@ -379,10 +370,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.saveOrUpdateResourcesModel = function (model) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + '/api/auth/resource-save', {
-                        method: 'POST',
-                        data: model,
-                    })];
+                return [2 /*return*/, this.requestT('/api/auth/resource-save', model, 'POST')];
             });
         });
     };
@@ -395,13 +383,10 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getTextList = function (page, pageSize, name) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)("/api/text/list", {
-                        method: 'GET',
-                        params: {
-                            page: page,
-                            pageSize: pageSize,
-                            name: name,
-                        },
+                return [2 /*return*/, this.requestT("/api/text/list", {
+                        page: page,
+                        pageSize: pageSize,
+                        name: name,
                     })];
             });
         });
@@ -413,10 +398,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.saveText = function (text) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)('/api/auth/text-update', {
-                        method: 'POST',
-                        data: text,
-                    })];
+                return [2 /*return*/, this.requestT('/api/auth/text-update', text, 'POST')];
             });
         });
     };
@@ -427,12 +409,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.deleteTextById = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)('/api/auth/text-delete', {
-                        data: {
-                            id: id,
-                        },
-                        method: 'DELETE',
-                    })];
+                return [2 /*return*/, this.requestT('/api/auth/text-delete', { id: id }, 'DELETE')];
             });
         });
     };
@@ -444,7 +421,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getBlogList = function (page, pageSize) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + '/api/blog/list?page=' + page + '&pageSize=' + pageSize)];
+                return [2 /*return*/, this.requestT('/api/blog/list?page=' + page + '&pageSize=' + pageSize)];
             });
         });
     };
@@ -454,7 +431,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getArchives = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + "/api/blog/statistics")];
+                return [2 /*return*/, this.requestT("/api/blog/statistics")];
             });
         });
     };
@@ -465,7 +442,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getBlogWithAlias = function (alias) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + "/api/blog/alias?alias=" + alias)];
+                return [2 /*return*/, this.requestT("/api/blog/alias?alias=" + alias)];
             });
         });
     };
@@ -478,7 +455,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getTextByName = function (name) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + "/api/blog/text?name=" + name)];
+                return [2 /*return*/, this.requestT("/api/blog/text?name=" + name)];
             });
         });
     };
@@ -490,10 +467,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getBlogsByTagId = function (tagId, pageModel) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + '/api/blog/tag/blogs', {
-                        method: 'GET',
-                        params: Object.assign({ tagId: tagId }, pageModel)
-                    })];
+                return [2 /*return*/, this.requestT('/api/blog/tag/blogs', Object.assign({ tagId: tagId }, pageModel))];
             });
         });
     };
@@ -505,10 +479,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getBlogsByCategoryId = function (categoryId, pageModel) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + '/api/blog/category/blogs', {
-                        method: 'GET',
-                        params: Object.assign({ categoryId: categoryId }, pageModel)
-                    })];
+                return [2 /*return*/, this.requestT('/api/blog/category/blogs', Object.assign({ categoryId: categoryId }, pageModel))];
             });
         });
     };
@@ -520,10 +491,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getBlogsByMonth = function (month, pageModel) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, (0, umi_request_1.default)(this._host + '/api/blog/month/blogs', {
-                        method: 'GET',
-                        params: Object.assign({ month: month }, pageModel)
-                    })];
+                return [2 /*return*/, this.requestT(this._host + '/api/blog/month/blogs', Object.assign({ month: month }, pageModel))];
             });
         });
     };

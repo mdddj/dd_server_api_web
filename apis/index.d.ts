@@ -20,6 +20,7 @@ declare class DdServerApiByWeb {
     set host(v: string);
     get host(): string;
     set token(v: string | undefined);
+    get token(): string | undefined;
     /**
      * 私有化类构造
      * @constructor
@@ -31,6 +32,7 @@ declare class DdServerApiByWeb {
      * 接口实例
      */
     static getInstance(): DdServerApiByWeb;
+    createClient(): import("umi-request").RequestMethod<false>;
     /**
      * 封装通用的请求方法
      * @param url   访问url
@@ -77,14 +79,14 @@ declare class DdServerApiByWeb {
      * 使用博客id获取博客信息
      * @param id  博客id
      */
-    getBlogDetailById(id: number): Promise<any>;
+    getBlogDetailById(id: number): Promise<Result<BlogData>>;
     /**
      * 或者博客分类列表
      * @param pageModel 分页
      * @param category? 查询条件
      * @constructor
      */
-    getCategoryForTableData(pageModel: PageParam, category?: Category): Promise<any>;
+    getCategoryForTableData(pageModel: PageParam, category?: Category): Promise<unknown>;
     /**
      * 添加或者修改一个博客分类
      * @param category 修改或者添加的模型
@@ -96,12 +98,12 @@ declare class DdServerApiByWeb {
      * @param id  分类id
      * @constructor
      */
-    deleteBlogCategory(id: number): Promise<any>;
+    deleteBlogCategory(id: number): Promise<unknown>;
     /**
      * 上传文件
      * @param data 数据
      */
-    uploadFile(data: any): Promise<any>;
+    uploadFile(data: any): Promise<unknown>;
     /**
      * 获取文件夹列表
      * @param id  父文件夹
@@ -121,7 +123,7 @@ declare class DdServerApiByWeb {
      * @param parenFolder 父亲文件夹
      * @constructor
      */
-    createFolder(name: string, parenFolder?: ResCategory): Promise<any>;
+    createFolder(name: string, parenFolder?: ResCategory): Promise<unknown>;
     /**
      * 获取资源列表
      * @param pageModel 分页数据
@@ -137,25 +139,25 @@ declare class DdServerApiByWeb {
      * @param category  分类
      * @constructor
      */
-    saveOrUpdateResourceCategory(category: ResCategory): Promise<any>;
+    saveOrUpdateResourceCategory(category: ResCategory): Promise<unknown>;
     /**
      * 根据id删除某个群组
      * @param category  群组数据, 后台只会取id删除
      * @constructor
      */
-    deleteResourceCategoryById(category: ResCategory): Promise<any>;
+    deleteResourceCategoryById(category: ResCategory): Promise<unknown>;
     /**
      * 根据名字模糊查询某个群组
      * @param name  群组名
      * @constructor
      */
-    findResCategoryListByNameLike(name: string): Promise<any>;
+    findResCategoryListByNameLike(name: string): Promise<unknown>;
     /**
      * 添加一个资源
      * @param model ResourceModel 对象模型
      * @constructor
      */
-    saveOrUpdateResourcesModel(model: ResourceModel): Promise<any>;
+    saveOrUpdateResourcesModel(model: ResourceModel): Promise<unknown>;
     /**
      * 获取字典列表
      * @param page  第几页
