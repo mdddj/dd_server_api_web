@@ -1,4 +1,3 @@
-
 /**
  * 淘客相关的接口
  */
@@ -13,6 +12,8 @@ import {BrandListModel} from "./model/result/BrandListModel";
 import {BrandDetailModel} from "./model/result/BrandDetailModel";
 import {Product} from "./model/ProductModel";
 import request from "umi-request";
+import {ProductListParam, ProductListResult} from "./model/param/ProductListParam";
+
 const TAOKE_API = '/tkapi/api/v1/dtk/apis';
 
 
@@ -66,7 +67,7 @@ class TaokeApi {
      */
     async requestT<T>(url: string, param?: any, taoke?: boolean): Promise<T> {
         return new Promise<T>(async (resolve, reject) => {
-            let result = await request<Result<string>>( `${(taoke ?? true) ? this.url : this._host}${url}`,{
+            let result = await request<Result<string>>(`${(taoke ?? true) ? this.url : this._host}${url}`, {
                 method: "GET",
                 params: param
             })
@@ -99,7 +100,7 @@ class TaokeApi {
      * @param params    生成参数
      */
     async getMeituanCoupon(params: MeituanCouponParam): Promise<TMeituanData> {
-        return this.requestT<TMeituanData>('/api/zhe/mt/tg',params,false)
+        return this.requestT<TMeituanData>('/api/zhe/mt/tg', params, false)
     }
     
     /**
@@ -133,6 +134,14 @@ class TaokeApi {
      */
     async getProductById(id: number): Promise<Product> {
         return this.requestT<Product>('/detail', {id})
+    }
+    
+    /**
+     * 获取商品列表
+     * @param params    请求参数
+     */
+    async getProductList(params: ProductListParam): Promise<ProductListResult> {
+        return this.requestT<ProductListResult>('/goods', params)
     }
     
 }

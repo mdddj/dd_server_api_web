@@ -66,7 +66,7 @@ declare class DdServerApiByWeb {
      * 删除一篇博客
      * @param blogId 博客id
      */
-    deleteBlog(blogId: number): Promise<unknown>;
+    deleteBlog(blogId: number): Promise<Result<string>>;
     /**
      * 获取分类列表
      */
@@ -86,7 +86,7 @@ declare class DdServerApiByWeb {
      * @param category? 查询条件
      * @constructor
      */
-    getCategoryForTableData(pageModel: PageParam, category?: Category): Promise<unknown>;
+    getCategoryForTableData(pageModel: PageParam, category?: Category): Promise<Result<Category[]>>;
     /**
      * 添加或者修改一个博客分类
      * @param category 修改或者添加的模型
@@ -98,12 +98,12 @@ declare class DdServerApiByWeb {
      * @param id  分类id
      * @constructor
      */
-    deleteBlogCategory(id: number): Promise<unknown>;
+    deleteBlogCategory(id: number): Promise<Result<string>>;
     /**
      * 上传文件
      * @param data 数据
      */
-    uploadFile(data: any): Promise<unknown>;
+    uploadFile(data: any): Promise<Result<FileInfo>>;
     /**
      * 获取文件夹列表
      * @param id  父文件夹

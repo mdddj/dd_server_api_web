@@ -189,6 +189,17 @@ var TaokeApi = /** @class */ (function () {
             });
         });
     };
+    /**
+     * 获取商品列表
+     * @param params    请求参数
+     */
+    TaokeApi.prototype.getProductList = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/goods', params)];
+            });
+        });
+    };
     return TaokeApi;
 }());
 exports.default = TaokeApi;

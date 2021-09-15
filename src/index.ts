@@ -87,7 +87,7 @@ class DdServerApiByWeb {
      * @param method    请求方法
      */
     async requestT<T>(url: string, data?: any, method?: 'GET' | 'POST' | 'DELETE'): Promise<T> {
-        
+        method ??='GET'
         let param = method === 'GET' ? data : undefined
         let postData = method === 'POST' || method === 'DELETE' ? data : undefined
         
@@ -130,7 +130,7 @@ class DdServerApiByWeb {
     /**
      * 发布一篇新博客
      */
-    async pushNewBlog(params: PushNewBlogParams) {
+    async pushNewBlog(params: PushNewBlogParams) : Promise<BlogPushNewResultData> {
         return this.requestT<BlogPushNewResultData>('/api/auth/blog-push-new', params, 'POST');
     }
     
@@ -138,8 +138,8 @@ class DdServerApiByWeb {
      * 删除一篇博客
      * @param blogId 博客id
      */
-    async deleteBlog(blogId: number) {
-        return this.requestT('/api/blog/delete', {
+    async deleteBlog(blogId: number) : Promise<Result<string>> {
+        return this.requestT<Result<string>>('/api/blog/delete', {
             id: blogId,
         }, 'DELETE');
     }
@@ -162,7 +162,7 @@ class DdServerApiByWeb {
      * 使用博客id获取博客信息
      * @param id  博客id
      */
-    async getBlogDetailById(id: number) {
+    async getBlogDetailById(id: number)  : Promise<Result<BlogData>>{
         return this.requestT<Result<BlogData>>('/api/blog/get/' + id);
     }
     
@@ -172,8 +172,8 @@ class DdServerApiByWeb {
      * @param category? 查询条件
      * @constructor
      */
-    async getCategoryForTableData(pageModel: PageParam, category?: Category) {
-        return this.requestT('/api/blog/category/list', Object.assign(pageModel, category));
+    async getCategoryForTableData(pageModel: PageParam, category?: Category) : Promise<Result<Category[]>> {
+        return this.requestT<Result<Category[]>>('/api/blog/category/list', Object.assign(pageModel, category));
     }
     
     /**
@@ -190,8 +190,8 @@ class DdServerApiByWeb {
      * @param id  分类id
      * @constructor
      */
-    async deleteBlogCategory(id: number) {
-        return this.requestT('/api/auth/blog-category-delete', id, 'DELETE');
+    async deleteBlogCategory(id: number) :Promise<Result<string>> {
+        return this.requestT<Result<string>>('/api/auth/blog-category-delete', id, 'DELETE');
     }
     
     
@@ -199,8 +199,8 @@ class DdServerApiByWeb {
      * 上传文件
      * @param data 数据
      */
-    async uploadFile(data: any) {
-        return this.requestT('/api/auth/file-upload', data, 'POST');
+    async uploadFile(data: any) : Promise<Result<FileInfo>> {
+        return this.requestT<Result<FileInfo>>('/api/auth/file-upload', data, 'POST');
     }
     
     /**

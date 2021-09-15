@@ -118,6 +118,7 @@ var DdServerApiByWeb = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             var param, postData, client;
             return __generator(this, function (_a) {
+                method !== null && method !== void 0 ? method : (method = 'GET');
                 param = method === 'GET' ? data : undefined;
                 postData = method === 'POST' || method === 'DELETE' ? data : undefined;
                 client = this.createClient();

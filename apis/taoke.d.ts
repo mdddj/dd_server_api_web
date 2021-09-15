@@ -6,6 +6,7 @@ import { PageParam } from "./model/PageModel";
 import { BrandListModel } from "./model/result/BrandListModel";
 import { BrandDetailModel } from "./model/result/BrandDetailModel";
 import { Product } from "./model/ProductModel";
+import { ProductListParam, ProductListResult } from "./model/param/ProductListParam";
 declare class TaokeApi {
     /**
      * 大淘客api
@@ -75,5 +76,10 @@ declare class TaokeApi {
      * @param id    大淘客商品id
      */
     getProductById(id: number): Promise<Product>;
+    /**
+     * 获取商品列表
+     * @param params    请求参数
+     */
+    getProductList(params: ProductListParam): Promise<ProductListResult>;
 }
 export default TaokeApi;
