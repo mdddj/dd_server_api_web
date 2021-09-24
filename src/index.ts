@@ -285,8 +285,8 @@ class DdServerApiByWeb {
      * @param category  群组数据, 后台只会取id删除
      * @constructor
      */
-    async deleteResourceCategoryById(category: ResCategory) {
-        return this.requestT('/api/auth/res-cate-delete', category, 'DELETE');
+    async deleteResourceCategoryById(category: ResCategory) : Promise<Result<string>> {
+        return this.requestT<Result<string>>('/api/auth/res-cate-delete', category, 'DELETE');
     }
     
     /**

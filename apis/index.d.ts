@@ -154,7 +154,7 @@ declare class DdServerApiByWeb {
      * @param category  群组数据, 后台只会取id删除
      * @constructor
      */
-    deleteResourceCategoryById(category: ResCategory): Promise<unknown>;
+    deleteResourceCategoryById(category: ResCategory): Promise<Result<string>>;
     /**
      * 根据名字模糊查询某个群组
      * @param name  群组名
