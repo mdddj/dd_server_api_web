@@ -276,8 +276,8 @@ class DdServerApiByWeb {
      * @param category  分类
      * @constructor
      */
-    async saveOrUpdateResourceCategory(category: ResCategory) {
-        return this.requestT('/api/auth/res-cate-save', category, 'POST');
+    async saveOrUpdateResourceCategory(category: ResCategory): Promise<Result<ResCategory>> {
+        return this.requestT<Result<ResCategory>>('/api/auth/res-cate-save', category, 'POST');
     }
     
     /**
@@ -303,8 +303,8 @@ class DdServerApiByWeb {
      * @param model ResourceModel 对象模型
      * @constructor
      */
-    async saveOrUpdateResourcesModel(model: ResourceModel) {
-        return this.requestT('/api/auth/resource-save', model, 'POST');
+    async saveOrUpdateResourcesModel(model: ResourceModel) : Promise<Result<ResourceModel>> {
+        return this.requestT<Result<ResourceModel>>('/api/auth/resource-save', model, 'POST');
     }
     
     /**
@@ -343,7 +343,7 @@ class DdServerApiByWeb {
      * 根据id删除某个标签,需要管理员权限
      * @param id 主键
      */
-    async deleteTextById(id: string) {
+    async deleteTextById(id: string) : Promise<Result<string>> {
         return this.requestT<Result<string>>('/api/auth/text-delete', {id}, 'DELETE');
     }
     

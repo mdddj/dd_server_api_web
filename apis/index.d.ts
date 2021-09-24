@@ -132,7 +132,7 @@ declare class DdServerApiByWeb {
      * @param parenFolder 父亲文件夹
      * @constructor
      */
-    createFolder(name: string, parenFolder?: ResCategory): Promise<unknown>;
+    createFolder(name: string, parenFolder?: ResCategory): Promise<Result<ResCategory>>;
     /**
      * 获取资源列表
      * @param pageModel 分页数据
@@ -148,7 +148,7 @@ declare class DdServerApiByWeb {
      * @param category  分类
      * @constructor
      */
-    saveOrUpdateResourceCategory(category: ResCategory): Promise<unknown>;
+    saveOrUpdateResourceCategory(category: ResCategory): Promise<Result<ResCategory>>;
     /**
      * 根据id删除某个群组
      * @param category  群组数据, 后台只会取id删除
@@ -166,7 +166,7 @@ declare class DdServerApiByWeb {
      * @param model ResourceModel 对象模型
      * @constructor
      */
-    saveOrUpdateResourcesModel(model: ResourceModel): Promise<unknown>;
+    saveOrUpdateResourcesModel(model: ResourceModel): Promise<Result<ResourceModel>>;
     /**
      * 获取字典列表
      * @param page  第几页
