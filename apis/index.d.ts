@@ -41,6 +41,15 @@ declare class DdServerApiByWeb {
      */
     requestT<T>(url: string, data?: any, method?: 'GET' | 'POST' | 'DELETE'): Promise<T>;
     /**
+     * 获取用户列表接口
+     * @param pager 分页
+     * @param user  查询条件
+     */
+    userList(pager: PageParam, user?: User): Promise<Result<{
+        page: PagerModel;
+        list: User[];
+    }>>;
+    /**
      * 用户登录方法
      * @param loginNumber   登录名
      * @param password  密码

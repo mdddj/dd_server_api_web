@@ -131,6 +131,18 @@ var DdServerApiByWeb = /** @class */ (function () {
         });
     };
     /**
+     * 获取用户列表接口
+     * @param pager 分页
+     * @param user  查询条件
+     */
+    DdServerApiByWeb.prototype.userList = function (pager, user) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/user/list', Object.assign(user !== null && user !== void 0 ? user : {}, pager), 'GET')];
+            });
+        });
+    };
+    /**
      * 用户登录方法
      * @param loginNumber   登录名
      * @param password  密码
@@ -183,7 +195,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.deleteBlog = function (blogId) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT('/api/blog/delete', {
+                return [2 /*return*/, this.requestT('/api/auth/blog-delete', {
                         id: blogId,
                     }, 'DELETE')];
             });

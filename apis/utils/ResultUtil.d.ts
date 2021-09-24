@@ -69,4 +69,4 @@ export declare const ParseResultToProTable: <T>(result: Result<any>) => AntdTabl
  *
  * @param params
  */
-export declare const antdTableParamAsT: <T>(params: any) => T;
+export declare const antdTableParamAsT: <T>(params: any) => T | undefined;
