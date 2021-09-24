@@ -1,5 +1,5 @@
 import ServerUtil from "./utils/ServerUtil";
-import request, {extend} from "umi-request";
+import {extend} from "umi-request";
 import {Page, PagerModel, Result} from "./utils/ResultUtil";
 import {User} from "./model/UserModel";
 import PushNewBlogParams from "./model/param/PushNewBlogParamsModel";
@@ -139,7 +139,7 @@ class DdServerApiByWeb {
      * @param blogId 博客id
      */
     async deleteBlog(blogId: number) : Promise<Result<string>> {
-        return this.requestT<Result<string>>('/api/blog/delete', {
+        return this.requestT<Result<string>>('/api/auth/blog-delete', {
             id: blogId,
         }, 'DELETE');
     }

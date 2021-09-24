@@ -35,12 +35,12 @@ export function responseIsSuccess<T>(result: Result<T>): boolean {
  * @param success   成功执行方法 如果result.data 为null时不执行success方法
  * @param error 返回错误信息
  */
-export function successResultHandle<T>(result: Result<T>, success: (data: T) => void,error?: (message:string)=>void) {
+export function successResultHandle<T>(result: Result<T>, success: (data: T) => void, error?: (message: string) => void) {
     if (responseIsSuccess<T>(result)) {
-        if(result.data){
+        if (result.data) {
             success(result.data)
         }
-    }else{
+    } else {
         error?.(result.message)
     }
 }
@@ -49,7 +49,7 @@ export function successResultHandle<T>(result: Result<T>, success: (data: T) => 
  * 淘客数据转换 json string 字符串转对象
  * @param data  json字符串  Result.data 类型是json类型转成T
  */
-export function tkDataToObject<T>(data:string) : T {
+export function tkDataToObject<T>(data: string): T {
     return JSON.parse(data) as T
 }
 
@@ -114,7 +114,7 @@ export const ParseResultToProTable = <T>(result: Result<any>): AntdTableResultDa
  *
  * @param params
  */
-export const antdTableParamAsT = <T>(params: any) => {
+export const antdTableParamAsT = <T>(params: any): T | undefined => {
     if (params.current) {
         delete params.current;
     }
