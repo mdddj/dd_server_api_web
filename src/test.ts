@@ -20,7 +20,11 @@ api.token = '12121212'
 // api.getCategoryForTableData({page: 0, pageSize: 12},).then(r => {
 //     console.log(r)
 // })
+//
+// api.userList({page:0,pageSize:20}).then(value => {
+//     console.log(value)
+// })
 
-api.userList({page:0,pageSize:20}).then(value => {
+api.getPics(1).then(value => {
     console.log(value)
 })

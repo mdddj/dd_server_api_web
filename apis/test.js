@@ -21,6 +21,10 @@ api.token = '12121212';
 // api.getCategoryForTableData({page: 0, pageSize: 12},).then(r => {
 //     console.log(r)
 // })
-api.userList({ page: 0, pageSize: 20 }).then(function (value) {
+//
+// api.userList({page:0,pageSize:20}).then(value => {
+//     console.log(value)
+// })
+api.getPics(1).then(function (value) {
     console.log(value);
 });

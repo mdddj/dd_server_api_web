@@ -8,6 +8,7 @@ import { FileInfo } from "./model/FileInfo";
 import { ResourceModel } from "./model/ResourceModel";
 import { TextModel } from "./model/TextModel";
 import { ArchiveModel, Tag } from "./model/ArchiveModel";
+import { SystemPicter } from "./model/avater";
 /**
  * 接口访问类
  */
@@ -231,6 +232,6 @@ declare class DdServerApiByWeb {
      * 获取图片列表
      * @param type 图片类型， 用户头像传 1
      */
-    getPics(type: number): Promise<Result<string>>;
+    getPics(type: number): Promise<Result<SystemPicter[]>>;
 }
 export default DdServerApiByWeb;

@@ -10,6 +10,7 @@ import {FileInfo} from "./model/FileInfo";
 import {ResourceModel} from "./model/ResourceModel";
 import {TextModel} from "./model/TextModel";
 import {ArchiveModel, Tag} from "./model/ArchiveModel";
+import {SystemPicter} from "./model/avater";
 
 
 interface TokenHandle {
@@ -424,8 +425,8 @@ class DdServerApiByWeb {
      * 获取图片列表
      * @param type 图片类型， 用户头像传 1
      */
-    async getPics(type:number) {
-        return this.requestT<Result<string>>('/api/pic/list',{'type':type})
+    async getPics(type:number): Promise<Result<SystemPicter[]>> {
+        return this.requestT<Result<SystemPicter[]>>('/api/pic/list',{'type':type})
     }
     
 }
