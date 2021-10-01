@@ -508,6 +508,17 @@ var DdServerApiByWeb = /** @class */ (function () {
             });
         });
     };
+    /**
+     * 获取图片列表
+     * @param type 图片类型， 用户头像传 1
+     */
+    DdServerApiByWeb.prototype.getPics = function (type) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/pic/list', { 'type': type })];
+            });
+        });
+    };
     return DdServerApiByWeb;
 }());
 exports.default = DdServerApiByWeb;

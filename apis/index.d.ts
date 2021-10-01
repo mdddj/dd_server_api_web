@@ -227,5 +227,10 @@ declare class DdServerApiByWeb {
      * @param pageModel 分类数据
      */
     getBlogsByMonth(month: string, pageModel: PageParam): Promise<Result<Page<BlogData>>>;
+    /**
+     * 获取图片列表
+     * @param type 图片类型， 用户头像传 1
+     */
+    getPics(type: number): Promise<Result<string>>;
 }
 export default DdServerApiByWeb;

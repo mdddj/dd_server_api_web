@@ -419,6 +419,14 @@ class DdServerApiByWeb {
     async getBlogsByMonth(month: string, pageModel: PageParam): Promise<Result<Page<BlogData>>> {
         return this.requestT<Result<Page<BlogData>>>(this._host + '/api/blog/month/blogs', Object.assign({month}, pageModel))
     }
+
+    /**
+     * 获取图片列表
+     * @param type 图片类型， 用户头像传 1
+     */
+    async getPics(type:number) {
+        return this.requestT<Result<string>>('/api/pic/list',{'type':type})
+    }
     
 }
 
