@@ -519,6 +519,25 @@ var DdServerApiByWeb = /** @class */ (function () {
             });
         });
     };
+    /**
+     * 注册用户
+     * data 没有数据返回
+     * 只显示消息提示就行
+     * @param loginName 登录名
+     * @param password  密码
+     * @param pic   头像
+     */
+    DdServerApiByWeb.prototype.register = function (loginName, password, pic) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/auth/user-addnew', {
+                        'loginNumber': loginName,
+                        'password': password,
+                        'picture': pic
+                    }, 'POST')];
+            });
+        });
+    };
     return DdServerApiByWeb;
 }());
 exports.default = DdServerApiByWeb;

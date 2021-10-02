@@ -233,5 +233,14 @@ declare class DdServerApiByWeb {
      * @param type 图片类型， 用户头像传 1
      */
     getPics(type: number): Promise<Result<SystemPicter[]>>;
+    /**
+     * 注册用户
+     * data 没有数据返回
+     * 只显示消息提示就行
+     * @param loginName 登录名
+     * @param password  密码
+     * @param pic   头像
+     */
+    register(loginName: string, password: string, pic: string): Promise<Result<undefined>>;
 }
 export default DdServerApiByWeb;
