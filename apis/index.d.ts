@@ -242,5 +242,10 @@ declare class DdServerApiByWeb {
      * @param pic   头像
      */
     register(loginName: string, password: string, pic: string): Promise<Result<undefined>>;
+    /**
+     * 修改用户信息
+     * @param user 将要修改的用户信息
+     */
+    updateUserProfile(user: User): Promise<Result<User | undefined>>;
 }
 export default DdServerApiByWeb;

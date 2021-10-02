@@ -538,6 +538,17 @@ var DdServerApiByWeb = /** @class */ (function () {
             });
         });
     };
+    /**
+     * 修改用户信息
+     * @param user 将要修改的用户信息
+     */
+    DdServerApiByWeb.prototype.updateUserProfile = function (user) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/u/update-profile', user, 'POST')];
+            });
+        });
+    };
     return DdServerApiByWeb;
 }());
 exports.default = DdServerApiByWeb;

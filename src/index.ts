@@ -438,12 +438,21 @@ class DdServerApiByWeb {
      * @param password  密码
      * @param pic   头像
      */
-    async register(loginName: string, password: string, pic: string) :  Promise<Result<undefined>> {
+    async register(loginName: string, password: string, pic: string): Promise<Result<undefined>> {
         return this.requestT<Result<undefined>>('/api/auth/user-addnew', {
             'loginNumber': loginName,
             'password': password,
             'picture': pic
         }, 'POST')
+    }
+
+
+    /**
+     * 修改用户信息
+     * @param user 将要修改的用户信息
+     */
+    async updateUserProfile(user: User): Promise<Result<User | undefined>> {
+        return this.requestT<Result<User | undefined>>('/api/u/update-profile', user, 'POST')
     }
 
 }
