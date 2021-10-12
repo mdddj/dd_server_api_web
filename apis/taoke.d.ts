@@ -1,4 +1,5 @@
 import { TCategory } from "./model/tk/CategoryModel";
+import { Result } from "./utils/ResultUtil";
 import { MeituanCouponParam } from "./model/param/MeituanCouponParam";
 import { TMeituanData } from "./model/tk/MeituanData";
 import { CarouselModel } from "./model/CarouselModel";
@@ -81,5 +82,10 @@ declare class TaokeApi {
      * @param params    请求参数
      */
     getProductList(params: ProductListParam): Promise<ProductListResult>;
+    /**
+     * 查询交易订单列表
+     * @param params 请求参数
+     */
+    getTaobaoOrder(params: any): Promise<Result<string>>;
 }
 export default TaokeApi;

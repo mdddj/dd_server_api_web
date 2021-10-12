@@ -144,6 +144,14 @@ class TaokeApi {
         return this.requestT<ProductListResult>('/goods', params)
     }
     
+    /**
+     * 查询交易订单列表
+     * @param params 请求参数
+     */
+    async getTaobaoOrder(params: any) : Promise<Result<string>>{
+        return this.requestT<Result<string>>('/get-order',params)
+    }
+    
 }
 
 
