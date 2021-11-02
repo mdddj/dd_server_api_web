@@ -549,6 +549,17 @@ var DdServerApiByWeb = /** @class */ (function () {
             });
         });
     };
+    /**
+     * 查询flutter插件信息
+     * @param name  插件名
+     */
+    DdServerApiByWeb.prototype.getFlutterPluginInfo = function (name) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/text/flutter-flugin', { 'name': name }, 'GET')];
+            });
+        });
+    };
     return DdServerApiByWeb;
 }());
 exports.default = DdServerApiByWeb;

@@ -247,5 +247,10 @@ declare class DdServerApiByWeb {
      * @param user 将要修改的用户信息
      */
     updateUserProfile(user: User): Promise<Result<User | undefined>>;
+    /**
+     * 查询flutter插件信息
+     * @param name  插件名
+     */
+    getFlutterPluginInfo(name: string): Promise<Result<String>>;
 }
 export default DdServerApiByWeb;

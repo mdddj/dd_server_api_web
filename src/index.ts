@@ -80,6 +80,8 @@ class DdServerApiByWeb {
         }
         return client;
     }
+    
+   
 
     /**
      * 封装通用的请求方法
@@ -453,6 +455,14 @@ class DdServerApiByWeb {
      */
     async updateUserProfile(user: User): Promise<Result<User | undefined>> {
         return this.requestT<Result<User | undefined>>('/api/u/update-profile', user, 'POST')
+    }
+    
+    /**
+     * 查询flutter插件信息
+     * @param name  插件名
+     */
+    async getFlutterPluginInfo(name: string) : Promise<Result<String>> {
+        return this.requestT<Result<string>>('/api/text/flutter-flugin',{'name':name},'GET')
     }
 
 }
