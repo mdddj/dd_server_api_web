@@ -504,7 +504,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getBlogsByMonth = function (month, pageModel) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT(this._host + '/api/blog/month/blogs', Object.assign({ month: month }, pageModel))];
+                return [2 /*return*/, this.requestT('/api/blog/month/blogs', Object.assign({ month: month }, pageModel))];
             });
         });
     };

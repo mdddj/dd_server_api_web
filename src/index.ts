@@ -420,7 +420,7 @@ class DdServerApiByWeb {
      * @param pageModel 分类数据
      */
     async getBlogsByMonth(month: string, pageModel: PageParam): Promise<Result<Page<BlogData>>> {
-        return this.requestT<Result<Page<BlogData>>>(this._host + '/api/blog/month/blogs', Object.assign({month}, pageModel))
+        return this.requestT<Result<Page<BlogData>>>('/api/blog/month/blogs', Object.assign({month}, pageModel))
     }
 
     /**
