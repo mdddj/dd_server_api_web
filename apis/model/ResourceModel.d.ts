@@ -1,4 +1,5 @@
 import { ResCategory } from "./ResCategory";
+import { User } from "./UserModel";
 export interface ResourceModel {
     title: string;
     label: string;
@@ -11,4 +12,5 @@ export interface ResourceModel {
     clickCount: number;
     content: string;
     category: ResCategory | undefined;
+    user?: User;
 }
