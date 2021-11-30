@@ -569,7 +569,19 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.saveFriendsLink = function (params) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT('/api/friends/save', params, 'POST')];
+                return [2 /*return*/, this.requestT('/api/friend/save', params, 'POST')];
+            });
+        });
+    };
+    /**
+     * 查询全部友链
+     * @param params 筛选条件
+     * @returns 友链列表
+     */
+    DdServerApiByWeb.prototype.getFriends = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/friend/list', params, 'GET')];
             });
         });
     };

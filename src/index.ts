@@ -1,16 +1,17 @@
 import ServerUtil from "./utils/ServerUtil";
-import {extend} from "umi-request";
-import {Page, PagerModel, Result} from "./utils/ResultUtil";
-import {User} from "./model/UserModel";
+import { Page, PagerModel, Result } from "./utils/ResultUtil";
+import { User } from "./model/UserModel";
 import PushNewBlogParams from "./model/param/PushNewBlogParamsModel";
-import {BlogData, BlogListData, BlogPushNewResultData, Category} from "./model/result/BlogPushNewResultData";
-import {PageParam} from "./model/PageModel";
-import {ResCategory} from "./model/ResCategory";
-import {FileInfo} from "./model/FileInfo";
-import {ResourceModel} from "./model/ResourceModel";
-import {TextModel} from "./model/TextModel";
-import {ArchiveModel, Tag} from "./model/ArchiveModel";
-import {SystemPicter} from "./model/avater";
+import { BlogData, BlogListData, BlogPushNewResultData, Category } from "./model/result/BlogPushNewResultData";
+import { PageParam } from "./model/PageModel";
+import { ResCategory } from "./model/ResCategory";
+import { FileInfo } from "./model/FileInfo";
+import { ResourceModel } from "./model/ResourceModel";
+import { TextModel } from "./model/TextModel";
+import { ArchiveModel, Tag } from "./model/ArchiveModel";
+import { SystemPicter } from "./model/avater";
+import { extend } from "umi-request";
+import { Friend } from "./model/friend";
 
 
 interface TokenHandle {
@@ -71,17 +72,17 @@ class DdServerApiByWeb {
             const authHeader = {
                 Authorization: this.token,
             };
-            client.interceptors.request.use((url, options) => {
+            client.interceptors.request.use((url: any, options: any) => {
                 return {
                     url,
-                    options: {...options, headers: authHeader, interceptors: true}
+                    options: { ...options, headers: authHeader, interceptors: true }
                 }
-            }, {global: false})
+            }, { global: false })
         }
         return client;
     }
-    
-   
+
+
 
     /**
      * 封装通用的请求方法
@@ -117,7 +118,7 @@ class DdServerApiByWeb {
      * @param password  密码
      */
     async login(loginNumber: string, password: string): Promise<Result<string>> {
-        return this.requestT<Result<string>>('/api/user/login', {loginNumber, password}, 'POST');
+        return this.requestT<Result<string>>('/api/user/login', { loginNumber, password }, 'POST');
     }
 
     /**
@@ -221,7 +222,7 @@ class DdServerApiByWeb {
      * @constructor
      */
     async getFolders(id?: number): Promise<Result<ResCategory[]>> {
-        return this.requestT<Result<ResCategory[]>>('/api/file/get-folders', {id});
+        return this.requestT<Result<ResCategory[]>>('/api/file/get-folders', { id });
     }
 
     /**
@@ -234,7 +235,7 @@ class DdServerApiByWeb {
         folderId: number,
         pageModel: PageParam,
     ): Promise<Result<Page<FileInfo>>> {
-        return this.requestT<Result<Page<FileInfo>>>('/api/file/get-files', Object.assign({id: folderId}, pageModel));
+        return this.requestT<Result<Page<FileInfo>>>('/api/file/get-files', Object.assign({ id: folderId }, pageModel));
     }
 
     /**
@@ -298,7 +299,7 @@ class DdServerApiByWeb {
      * @constructor
      */
     async findResCategoryListByNameLike(name: string) {
-        return this.requestT('/api/res/like-list', {name});
+        return this.requestT('/api/res/like-list', { name });
     }
 
     /**
@@ -347,7 +348,7 @@ class DdServerApiByWeb {
      * @param id 主键
      */
     async deleteTextById(id: string): Promise<Result<string>> {
-        return this.requestT<Result<string>>('/api/auth/text-delete', {id}, 'DELETE');
+        return this.requestT<Result<string>>('/api/auth/text-delete', { id }, 'DELETE');
     }
 
     /**
@@ -400,7 +401,7 @@ class DdServerApiByWeb {
      * @param pageModel 分页数据
      */
     async getBlogsByTagId(tagId: number, pageModel: PageParam): Promise<Result<Page<BlogData>>> {
-        return this.requestT<Result<Page<BlogData>>>('/api/blog/tag/blogs', Object.assign({tagId}, pageModel)
+        return this.requestT<Result<Page<BlogData>>>('/api/blog/tag/blogs', Object.assign({ tagId }, pageModel)
         )
     }
 
@@ -410,7 +411,7 @@ class DdServerApiByWeb {
      * @param pageModel 分类数据
      */
     async getBlogsByCategoryId(categoryId: number, pageModel: PageParam): Promise<Result<Page<BlogData>>> {
-        return this.requestT<Result<Page<BlogData>>>('/api/blog/category/blogs', Object.assign({categoryId}, pageModel))
+        return this.requestT<Result<Page<BlogData>>>('/api/blog/category/blogs', Object.assign({ categoryId }, pageModel))
     }
 
 
@@ -420,7 +421,7 @@ class DdServerApiByWeb {
      * @param pageModel 分类数据
      */
     async getBlogsByMonth(month: string, pageModel: PageParam): Promise<Result<Page<BlogData>>> {
-        return this.requestT<Result<Page<BlogData>>>('/api/blog/month/blogs', Object.assign({month}, pageModel))
+        return this.requestT<Result<Page<BlogData>>>('/api/blog/month/blogs', Object.assign({ month }, pageModel))
     }
 
     /**
@@ -428,7 +429,7 @@ class DdServerApiByWeb {
      * @param type 图片类型， 用户头像传 1
      */
     async getPics(type: number): Promise<Result<SystemPicter[]>> {
-        return this.requestT<Result<SystemPicter[]>>('/api/pic/list', {'type': type})
+        return this.requestT<Result<SystemPicter[]>>('/api/pic/list', { 'type': type })
     }
 
 
@@ -456,13 +457,13 @@ class DdServerApiByWeb {
     async updateUserProfile(user: User): Promise<Result<User | undefined>> {
         return this.requestT<Result<User | undefined>>('/api/u/update-profile', user, 'POST')
     }
-    
+
     /**
      * 查询flutter插件信息
      * @param name  插件名
      */
-    async getFlutterPluginInfo(name: string) : Promise<Result<String>> {
-        return this.requestT<Result<string>>('/api/text/flutter-flugin',{'name':name},'GET')
+    async getFlutterPluginInfo(name: string): Promise<Result<String>> {
+        return this.requestT<Result<string>>('/api/text/flutter-flugin', { 'name': name }, 'GET')
     }
 
 
@@ -472,9 +473,21 @@ class DdServerApiByWeb {
      * @param params 请求参数
      * @returns 返回操作成功的数据
      */
-    async saveFriendsLink(params: any) : Promise<Result<any>> {
-        return this.requestT<Result<any>>('/api/friends/save',params,'POST')
+    async saveFriendsLink(params: any): Promise<Result<any>> {
+        return this.requestT<Result<any>>('/api/friend/save', params, 'POST')
     }
+
+
+    /**
+     * 查询全部友链
+     * @param params 筛选条件
+     * @returns 友链列表
+     */
+    async getFriends(params?:any) : Promise<Result<Friend[]>> {
+        return this.requestT<Result<Friend[]>>('/api/friend/list',params,'GET')
+    }
+
+
 
 }
 

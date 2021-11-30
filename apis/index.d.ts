@@ -9,6 +9,7 @@ import { ResourceModel } from "./model/ResourceModel";
 import { TextModel } from "./model/TextModel";
 import { ArchiveModel, Tag } from "./model/ArchiveModel";
 import { SystemPicter } from "./model/avater";
+import { Friend } from "./model/friend";
 /**
  * 接口访问类
  */
@@ -259,5 +260,11 @@ declare class DdServerApiByWeb {
      * @returns 返回操作成功的数据
      */
     saveFriendsLink(params: any): Promise<Result<any>>;
+    /**
+     * 查询全部友链
+     * @param params 筛选条件
+     * @returns 友链列表
+     */
+    getFriends(params?: any): Promise<Result<Friend[]>>;
 }
 export default DdServerApiByWeb;
