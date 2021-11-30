@@ -465,6 +465,17 @@ class DdServerApiByWeb {
         return this.requestT<Result<string>>('/api/text/flutter-flugin',{'name':name},'GET')
     }
 
+
+    /**
+     * 申请或者修改一个友情链接
+     * 如果修改，需要登陆且拥有管理员的权限
+     * @param params 请求参数
+     * @returns 返回操作成功的数据
+     */
+    async saveFriendsLink(params: any) : Promise<Result<any>> {
+        return this.requestT<Result<any>>('/api/friends/save',params,'POST')
+    }
+
 }
 
 export default DdServerApiByWeb

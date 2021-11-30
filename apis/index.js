@@ -560,6 +560,19 @@ var DdServerApiByWeb = /** @class */ (function () {
             });
         });
     };
+    /**
+     * 申请或者修改一个友情链接
+     * 如果修改，需要登陆且拥有管理员的权限
+     * @param params 请求参数
+     * @returns 返回操作成功的数据
+     */
+    DdServerApiByWeb.prototype.saveFriendsLink = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/friends/save', params, 'POST')];
+            });
+        });
+    };
     return DdServerApiByWeb;
 }());
 exports.default = DdServerApiByWeb;

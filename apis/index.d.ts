@@ -252,5 +252,12 @@ declare class DdServerApiByWeb {
      * @param name  插件名
      */
     getFlutterPluginInfo(name: string): Promise<Result<String>>;
+    /**
+     * 申请或者修改一个友情链接
+     * 如果修改，需要登陆且拥有管理员的权限
+     * @param params 请求参数
+     * @returns 返回操作成功的数据
+     */
+    saveFriendsLink(params: any): Promise<Result<any>>;
 }
 export default DdServerApiByWeb;
