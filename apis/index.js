@@ -597,6 +597,34 @@ var DdServerApiByWeb = /** @class */ (function () {
             });
         });
     };
+    /**
+     *
+     * 修改一个友情链接的数据
+     * 注意事项：
+     * 1. id不能为空
+     * 2. 需要管理员权限
+     * @param params 需要修改的参数
+     * @returns
+     */
+    DdServerApiByWeb.prototype.updateFriendsObject = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/auth/update-friends-obj', params, 'POST')];
+            });
+        });
+    };
+    /**
+     * 删除某个友链
+     * @param id 将要删除的友链对象ID
+     * @returns 操作结果
+     */
+    DdServerApiByWeb.prototype.deleteFriendObject = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/auth/delete-friends-obj', { id: id }, 'DELETE')];
+            });
+        });
+    };
     return DdServerApiByWeb;
 }());
 exports.default = DdServerApiByWeb;

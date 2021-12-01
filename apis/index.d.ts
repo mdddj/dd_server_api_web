@@ -272,5 +272,21 @@ declare class DdServerApiByWeb {
      * @returns 分类对象
      */
     findBlogCategoryByName(name: string): Promise<Result<Category | undefined>>;
+    /**
+     *
+     * 修改一个友情链接的数据
+     * 注意事项：
+     * 1. id不能为空
+     * 2. 需要管理员权限
+     * @param params 需要修改的参数
+     * @returns
+     */
+    updateFriendsObject(params: any): Promise<Result<Friend>>;
+    /**
+     * 删除某个友链
+     * @param id 将要删除的友链对象ID
+     * @returns 操作结果
+     */
+    deleteFriendObject(id: number): Promise<Result<any>>;
 }
 export default DdServerApiByWeb;

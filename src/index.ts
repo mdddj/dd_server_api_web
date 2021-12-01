@@ -483,8 +483,8 @@ class DdServerApiByWeb {
      * @param params 筛选条件
      * @returns 友链列表
      */
-    async getFriends(params?:any) : Promise<Result<Friend[]>> {
-        return this.requestT<Result<Friend[]>>('/api/friend/list',params,'GET')
+    async getFriends(params?: any): Promise<Result<Friend[]>> {
+        return this.requestT<Result<Friend[]>>('/api/friend/list', params, 'GET')
     }
 
 
@@ -493,10 +493,31 @@ class DdServerApiByWeb {
      * @param name 分类名
      * @returns 分类对象
      */
-    async findBlogCategoryByName(name: string) : Promise<Result<Category|undefined>> {
-        return this.requestT<Result<Category|undefined>>('/api/blog/category/findByName',{name},'GET')
+    async findBlogCategoryByName(name: string): Promise<Result<Category | undefined>> {
+        return this.requestT<Result<Category | undefined>>('/api/blog/category/findByName', { name }, 'GET')
     }
 
+    /**
+     * 
+     * 修改一个友情链接的数据
+     * 注意事项：
+     * 1. id不能为空
+     * 2. 需要管理员权限
+     * @param params 需要修改的参数
+     * @returns 
+     */
+    async updateFriendsObject(params: any): Promise<Result<Friend>> {
+        return this.requestT<Result<Friend>>('/api/auth/update-friends-obj', params, 'POST')
+    }
+
+    /**
+     * 删除某个友链
+     * @param id 将要删除的友链对象ID
+     * @returns 操作结果
+     */
+    async deleteFriendObject(id: number) : Promise<Result<any>> {
+        return this.requestT<Result<any>>('/api/auth/delete-friends-obj',{id},'DELETE')
+    }
 
 }
 
