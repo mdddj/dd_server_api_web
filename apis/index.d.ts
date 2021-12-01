@@ -266,5 +266,11 @@ declare class DdServerApiByWeb {
      * @returns 友链列表
      */
     getFriends(params?: any): Promise<Result<Friend[]>>;
+    /**
+     * 根据分类名查询一个分类对象,可能会找不到
+     * @param name 分类名
+     * @returns 分类对象
+     */
+    findBlogCategoryByName(name: string): Promise<Result<Category | undefined>>;
 }
 export default DdServerApiByWeb;

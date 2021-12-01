@@ -488,6 +488,15 @@ class DdServerApiByWeb {
     }
 
 
+    /**
+     * 根据分类名查询一个分类对象,可能会找不到
+     * @param name 分类名
+     * @returns 分类对象
+     */
+    async findBlogCategoryByName(name: string) : Promise<Result<Category|undefined>> {
+        return this.requestT<Result<Category|undefined>>('/api/blog/category/findByName',{name},'GET')
+    }
+
 
 }
 

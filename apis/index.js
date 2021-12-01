@@ -585,6 +585,18 @@ var DdServerApiByWeb = /** @class */ (function () {
             });
         });
     };
+    /**
+     * 根据分类名查询一个分类对象,可能会找不到
+     * @param name 分类名
+     * @returns 分类对象
+     */
+    DdServerApiByWeb.prototype.findBlogCategoryByName = function (name) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/blog/category/findByName', { name: name }, 'GET')];
+            });
+        });
+    };
     return DdServerApiByWeb;
 }());
 exports.default = DdServerApiByWeb;
