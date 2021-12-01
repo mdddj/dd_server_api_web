@@ -288,5 +288,17 @@ declare class DdServerApiByWeb {
      * @returns 操作结果
      */
     deleteFriendObject(id: number): Promise<Result<any>>;
+    /**
+     * 给某个用户发送邮件
+     * 注意
+     * 1.需要管理员权限才能操作
+     * 2.不能缺少任何一个参数
+     * @param email 接收者邮箱
+     * @param title 标题
+     * @param content 正文内容
+     * @param html 是否为html格式
+     * @returns 处理结果字符串
+     */
+    sendEmail(email: string, title: string, content: string, html: boolean): Promise<Result<string>>;
 }
 export default DdServerApiByWeb;

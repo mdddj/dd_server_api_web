@@ -519,6 +519,21 @@ class DdServerApiByWeb {
         return this.requestT<Result<any>>('/api/auth/delete-friends-obj',{id},'DELETE')
     }
 
+    /**
+     * 给某个用户发送邮件
+     * 注意
+     * 1.需要管理员权限才能操作
+     * 2.不能缺少任何一个参数
+     * @param email 接收者邮箱
+     * @param title 标题
+     * @param content 正文内容
+     * @param html 是否为html格式
+     * @returns 处理结果字符串
+     */
+    async sendEmail(email: string,title:string,content:string,html: boolean): Promise<Result<string>>{
+        return this.requestT<Result<string>>('/api/auth/send-email',{email,title,content,html},'POST')
+    }
+
 }
 
 export default DdServerApiByWeb

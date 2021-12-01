@@ -625,6 +625,24 @@ var DdServerApiByWeb = /** @class */ (function () {
             });
         });
     };
+    /**
+     * 给某个用户发送邮件
+     * 注意
+     * 1.需要管理员权限才能操作
+     * 2.不能缺少任何一个参数
+     * @param email 接收者邮箱
+     * @param title 标题
+     * @param content 正文内容
+     * @param html 是否为html格式
+     * @returns 处理结果字符串
+     */
+    DdServerApiByWeb.prototype.sendEmail = function (email, title, content, html) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/auth/send-email', { email: email, title: title, content: content, html: html }, 'POST')];
+            });
+        });
+    };
     return DdServerApiByWeb;
 }());
 exports.default = DdServerApiByWeb;
