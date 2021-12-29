@@ -5,7 +5,7 @@ import { BlogData, BlogListData, BlogPushNewResultData, Category } from "./model
 import { PageParam } from "./model/PageModel";
 import { ResCategory } from "./model/ResCategory";
 import { FileInfo } from "./model/FileInfo";
-import { ResourceModel } from "./model/ResourceModel";
+import { PublishPostResult, ResourceModel } from "./model/ResourceModel";
 import { TextModel } from "./model/TextModel";
 import { ArchiveModel, Tag } from "./model/ArchiveModel";
 import { SystemPicter } from "./model/avater";
@@ -41,7 +41,7 @@ declare class DdServerApiByWeb {
      * @param data  请求参数
      * @param method    请求方法
      */
-    requestT<T>(url: string, data?: any, method?: 'GET' | 'POST' | 'DELETE'): Promise<T>;
+    requestT<T>(url: string, data?: any, method?: 'GET' | 'POST' | 'DELETE', requestType?: 'form' | 'json'): Promise<T>;
     /**
      * 获取用户列表接口
      * @param pager 分页
@@ -300,5 +300,17 @@ declare class DdServerApiByWeb {
      * @returns 处理结果字符串
      */
     sendEmail(email: string, title: string, content: string, html: boolean): Promise<Result<string>>;
+    /**
+     * 发布动态
+     * @param data 数据
+     * @returns
+     */
+    publishPost(data: any): Promise<Result<PublishPostResult>>;
+    /**
+     * 删除一个资源
+     * @param id    资源ID
+     * @returns
+     */
+    deleteResource(id: number): Promise<Result<string>>;
 }
 export default DdServerApiByWeb;

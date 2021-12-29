@@ -114,7 +114,7 @@ var DdServerApiByWeb = /** @class */ (function () {
      * @param data  请求参数
      * @param method    请求方法
      */
-    DdServerApiByWeb.prototype.requestT = function (url, data, method) {
+    DdServerApiByWeb.prototype.requestT = function (url, data, method, requestType) {
         return __awaiter(this, void 0, void 0, function () {
             var param, postData, client;
             return __generator(this, function (_a) {
@@ -126,6 +126,7 @@ var DdServerApiByWeb = /** @class */ (function () {
                         method: method !== null && method !== void 0 ? method : 'GET',
                         params: param,
                         data: postData,
+                        requestType: requestType !== null && requestType !== void 0 ? requestType : (requestType = 'json')
                     })];
             });
         });
@@ -640,6 +641,30 @@ var DdServerApiByWeb = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.requestT('/api/auth/send-email', { email: email, title: title, content: content, html: html }, 'POST')];
+            });
+        });
+    };
+    /**
+     * 发布动态
+     * @param data 数据
+     * @returns
+     */
+    DdServerApiByWeb.prototype.publishPost = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/resource/add-post', data, 'POST', 'form')];
+            });
+        });
+    };
+    /**
+     * 删除一个资源
+     * @param id    资源ID
+     * @returns
+     */
+    DdServerApiByWeb.prototype.deleteResource = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/resource/delete', { id: id }, 'DELETE')];
             });
         });
     };

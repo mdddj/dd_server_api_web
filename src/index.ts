@@ -6,7 +6,7 @@ import { BlogData, BlogListData, BlogPushNewResultData, Category } from "./model
 import { PageParam } from "./model/PageModel";
 import { ResCategory } from "./model/ResCategory";
 import { FileInfo } from "./model/FileInfo";
-import { ResourceModel } from "./model/ResourceModel";
+import { PublishPostResult, ResourceModel } from "./model/ResourceModel";
 import { TextModel } from "./model/TextModel";
 import { ArchiveModel, Tag } from "./model/ArchiveModel";
 import { SystemPicter } from "./model/avater";
@@ -90,7 +90,7 @@ class DdServerApiByWeb {
      * @param data  请求参数
      * @param method    请求方法
      */
-    async requestT<T>(url: string, data?: any, method?: 'GET' | 'POST' | 'DELETE'): Promise<T> {
+    async requestT<T>(url: string, data?: any, method?: 'GET' | 'POST' | 'DELETE', requestType?: 'form' | 'json'): Promise<T> {
         method ??= 'GET'
         let param = method === 'GET' ? data : undefined
         let postData = method === 'POST' || method === 'DELETE' ? data : undefined
@@ -100,6 +100,7 @@ class DdServerApiByWeb {
             method: method ?? 'GET',
             params: param,
             data: postData,
+            requestType: requestType ??= 'json'
         })
     }
 
@@ -515,8 +516,8 @@ class DdServerApiByWeb {
      * @param id 将要删除的友链对象ID
      * @returns 操作结果
      */
-    async deleteFriendObject(id: number) : Promise<Result<any>> {
-        return this.requestT<Result<any>>('/api/auth/delete-friends-obj',{id},'DELETE')
+    async deleteFriendObject(id: number): Promise<Result<any>> {
+        return this.requestT<Result<any>>('/api/auth/delete-friends-obj', { id }, 'DELETE')
     }
 
     /**
@@ -530,8 +531,26 @@ class DdServerApiByWeb {
      * @param html 是否为html格式
      * @returns 处理结果字符串
      */
-    async sendEmail(email: string,title:string,content:string,html: boolean): Promise<Result<string>>{
-        return this.requestT<Result<string>>('/api/auth/send-email',{email,title,content,html},'POST')
+    async sendEmail(email: string, title: string, content: string, html: boolean): Promise<Result<string>> {
+        return this.requestT<Result<string>>('/api/auth/send-email', { email, title, content, html }, 'POST')
+    }
+
+    /**
+     * 发布动态
+     * @param data 数据
+     * @returns 
+     */
+    async publishPost(data: any): Promise<Result<PublishPostResult>> {
+        return this.requestT<Result<PublishPostResult>>('/api/resource/add-post', data, 'POST', 'form')
+    }
+
+    /**
+     * 删除一个资源
+     * @param id    资源ID
+     * @returns 
+     */
+    async deleteResource(id: number) {
+        return this.requestT<Result<string>>('/api/resource/delete', { id }, 'DELETE')
     }
 
 }
