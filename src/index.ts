@@ -553,6 +553,15 @@ class DdServerApiByWeb {
         return this.requestT<Result<string>>('/api/resource/delete', { id }, 'DELETE')
     }
 
+    /**
+     * 查询一个资源分类
+     * @param params 查询条件
+     * @returns 查询结果，单个对象
+     */
+    async getResourceCategory(params: ResCategory) {
+        return this.requestT<Result<ResCategory | undefined>>('/api/res/find', params, 'GET')
+    }
+
 }
 
 export default DdServerApiByWeb

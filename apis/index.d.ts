@@ -312,5 +312,11 @@ declare class DdServerApiByWeb {
      * @returns
      */
     deleteResource(id: number): Promise<Result<string>>;
+    /**
+     * 查询一个资源分类
+     * @param params 查询条件
+     * @returns 查询结果，单个对象
+     */
+    getResourceCategory(params: ResCategory): Promise<Result<ResCategory | undefined>>;
 }
 export default DdServerApiByWeb;

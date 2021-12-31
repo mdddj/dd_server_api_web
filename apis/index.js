@@ -668,6 +668,18 @@ var DdServerApiByWeb = /** @class */ (function () {
             });
         });
     };
+    /**
+     * 查询一个资源分类
+     * @param params 查询条件
+     * @returns 查询结果，单个对象
+     */
+    DdServerApiByWeb.prototype.getResourceCategory = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/res/find', params, 'GET')];
+            });
+        });
+    };
     return DdServerApiByWeb;
 }());
 exports.default = DdServerApiByWeb;
