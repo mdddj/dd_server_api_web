@@ -574,7 +574,7 @@ class DdServerApiByWeb {
         return this.requestT<Result<{
             folders: ResCategory[],
             children: ResourceModel[]
-        }>>('/api/res/sub',id,'GET')
+        }>>('/api/res/sub',{id},'GET')
     }
 
 }
