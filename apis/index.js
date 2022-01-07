@@ -688,7 +688,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getResourceSubObject = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT('/api/', id, 'GET')];
+                return [2 /*return*/, this.requestT('/api/res/sub', id, 'GET')];
             });
         });
     };
