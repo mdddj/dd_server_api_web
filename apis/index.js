@@ -113,6 +113,7 @@ var DdServerApiByWeb = /** @class */ (function () {
      * @param url   访问url
      * @param data  请求参数
      * @param method    请求方法
+     * @param requestType 请求方式
      */
     DdServerApiByWeb.prototype.requestT = function (url, data, method, requestType) {
         return __awaiter(this, void 0, void 0, function () {
@@ -677,6 +678,17 @@ var DdServerApiByWeb = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.requestT('/api/res/find', params, 'GET')];
+            });
+        });
+    };
+    /**
+     * 获取资源子对象集合
+     * @param id 分类ID
+     */
+    DdServerApiByWeb.prototype.getResourceSubObject = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/', id, 'GET')];
             });
         });
     };

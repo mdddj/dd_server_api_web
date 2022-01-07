@@ -40,6 +40,7 @@ declare class DdServerApiByWeb {
      * @param url   访问url
      * @param data  请求参数
      * @param method    请求方法
+     * @param requestType 请求方式
      */
     requestT<T>(url: string, data?: any, method?: 'GET' | 'POST' | 'DELETE', requestType?: 'form' | 'json'): Promise<T>;
     /**
@@ -318,5 +319,13 @@ declare class DdServerApiByWeb {
      * @returns 查询结果，单个对象
      */
     getResourceCategory(params: ResCategory): Promise<Result<ResCategory | undefined>>;
+    /**
+     * 获取资源子对象集合
+     * @param id 分类ID
+     */
+    getResourceSubObject(id: number): Promise<Result<{
+        folders: ResCategory[];
+        children: ResourceModel[];
+    }>>;
 }
 export default DdServerApiByWeb;

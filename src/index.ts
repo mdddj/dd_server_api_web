@@ -89,6 +89,7 @@ class DdServerApiByWeb {
      * @param url   访问url
      * @param data  请求参数
      * @param method    请求方法
+     * @param requestType 请求方式
      */
     async requestT<T>(url: string, data?: any, method?: 'GET' | 'POST' | 'DELETE', requestType?: 'form' | 'json'): Promise<T> {
         method ??= 'GET'
@@ -560,6 +561,20 @@ class DdServerApiByWeb {
      */
     async getResourceCategory(params: ResCategory) {
         return this.requestT<Result<ResCategory | undefined>>('/api/res/find', params, 'GET')
+    }
+
+    /**
+     * 获取资源子对象集合
+     * @param id 分类ID
+     */
+    async getResourceSubObject(id: number) : Promise<Result<{
+        folders: ResCategory[],
+        children: ResourceModel[]
+    }>> {
+        return this.requestT<Result<{
+            folders: ResCategory[],
+            children: ResourceModel[]
+        }>>('/api/',id,'GET')
     }
 
 }
