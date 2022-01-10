@@ -12,6 +12,7 @@ import { ArchiveModel, Tag } from "./model/ArchiveModel";
 import { SystemPicter } from "./model/avater";
 import { extend } from "umi-request";
 import { Friend } from "./model/friend";
+import {ResourceTreeModel} from "./model/ResourceTreeModel";
 
 
 interface TokenHandle {
@@ -567,14 +568,8 @@ class DdServerApiByWeb {
      * 获取资源子对象集合
      * @param id 分类ID
      */
-    async getResourceSubObject(id: number) : Promise<Result<{
-        folders: ResCategory[],
-        children: ResourceModel[]
-    }>> {
-        return this.requestT<Result<{
-            folders: ResCategory[],
-            children: ResourceModel[]
-        }>>('/api/res/sub',{id},'GET')
+    async getResourceSubObject(id: number) : Promise<Result<ResourceTreeModel>> {
+        return this.requestT<Result<ResourceTreeModel>>('/api/res/sub',{id},'GET')
     }
 
 }

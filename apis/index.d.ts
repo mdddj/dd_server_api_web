@@ -10,6 +10,7 @@ import { TextModel } from "./model/TextModel";
 import { ArchiveModel, Tag } from "./model/ArchiveModel";
 import { SystemPicter } from "./model/avater";
 import { Friend } from "./model/friend";
+import { ResourceTreeModel } from "./model/ResourceTreeModel";
 /**
  * 接口访问类
  */
@@ -323,9 +324,6 @@ declare class DdServerApiByWeb {
      * 获取资源子对象集合
      * @param id 分类ID
      */
-    getResourceSubObject(id: number): Promise<Result<{
-        folders: ResCategory[];
-        children: ResourceModel[];
-    }>>;
+    getResourceSubObject(id: number): Promise<Result<ResourceTreeModel>>;
 }
 export default DdServerApiByWeb;
