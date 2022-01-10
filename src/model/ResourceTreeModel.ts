@@ -12,4 +12,5 @@ export interface TreeFolders {
     childrenIds: number[];
     logo:        string;
     children:    TreeFolders[] | null;
+    resources: ResourceModel[]
 }
