@@ -700,7 +700,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.uploadFileWithSingle = function (file) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT('/api/auth/simple-upload', { file: file }, 'POST')];
+                return [2 /*return*/, this.requestT('/api/auth/simple-upload', file, 'POST')];
             });
         });
     };

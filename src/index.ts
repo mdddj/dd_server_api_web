@@ -578,7 +578,7 @@ class DdServerApiByWeb {
      * @param file 上传的内容
      */
     async uploadFileWithSingle(file: any) : Promise<Result<string>>{
-        return this.requestT<Result<string>>('/api/auth/simple-upload',{file:file},'POST')
+        return this.requestT<Result<string>>('/api/auth/simple-upload',file,'POST')
     }
 
 }
