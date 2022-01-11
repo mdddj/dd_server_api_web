@@ -572,6 +572,15 @@ class DdServerApiByWeb {
         return this.requestT<Result<ResourceTreeModel>>('/api/res/sub',{id},'GET')
     }
 
+    /**
+     * 上传文件通用，
+     * 需要管理员权限
+     * @param file 上传的内容
+     */
+    async uploadFileWithSingle(file: any) : Promise<Result<string>>{
+        return this.requestT<Result<string>>('/api/auth/simple-upload',{file:file},'POST')
+    }
+
 }
 
 export default DdServerApiByWeb

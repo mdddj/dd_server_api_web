@@ -325,5 +325,11 @@ declare class DdServerApiByWeb {
      * @param id 分类ID
      */
     getResourceSubObject(id: number): Promise<Result<ResourceTreeModel>>;
+    /**
+     * 上传文件通用，
+     * 需要管理员权限
+     * @param file 上传的内容
+     */
+    uploadFileWithSingle(file: any): Promise<Result<string>>;
 }
 export default DdServerApiByWeb;

@@ -692,6 +692,18 @@ var DdServerApiByWeb = /** @class */ (function () {
             });
         });
     };
+    /**
+     * 上传文件通用，
+     * 需要管理员权限
+     * @param file 上传的内容
+     */
+    DdServerApiByWeb.prototype.uploadFileWithSingle = function (file) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/auth/simple-upload', { file: file }, 'POST')];
+            });
+        });
+    };
     return DdServerApiByWeb;
 }());
 exports.default = DdServerApiByWeb;
