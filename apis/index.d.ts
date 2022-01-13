@@ -331,5 +331,10 @@ declare class DdServerApiByWeb {
      * @param file 上传的内容
      */
     uploadFileWithSingle(file: any): Promise<Result<string>>;
+    /**
+     * 创建一个文档子目录,或者修改
+     * @param params 参数 [CreateOrUpdateDocDirectoryParam]
+     */
+    createOrUpdateDocDirectory(params: CreateOrUpdateDocDirectoryParam): Promise<Result<ResCategory | string>>;
 }
 export default DdServerApiByWeb;

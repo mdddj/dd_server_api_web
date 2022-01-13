@@ -581,6 +581,15 @@ class DdServerApiByWeb {
         return this.requestT<Result<string>>('/api/auth/simple-upload',file,'POST')
     }
 
+    /**
+     * 创建一个文档子目录,或者修改
+     * @param params 参数 [CreateOrUpdateDocDirectoryParam]
+     */
+    async createOrUpdateDocDirectory(params: CreateOrUpdateDocDirectoryParam):Promise<Result<ResCategory|string>> {
+        return this.requestT<Result<ResCategory|string>>('/api/auth/cate-director-action',params,'POST')
+
+    }
+
 }
 
 export default DdServerApiByWeb

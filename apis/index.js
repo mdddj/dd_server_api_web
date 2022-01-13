@@ -704,6 +704,17 @@ var DdServerApiByWeb = /** @class */ (function () {
             });
         });
     };
+    /**
+     * 创建一个文档子目录,或者修改
+     * @param params 参数 [CreateOrUpdateDocDirectoryParam]
+     */
+    DdServerApiByWeb.prototype.createOrUpdateDocDirectory = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/auth/cate-director-action', params, 'POST')];
+            });
+        });
+    };
     return DdServerApiByWeb;
 }());
 exports.default = DdServerApiByWeb;
