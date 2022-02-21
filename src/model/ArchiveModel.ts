@@ -14,11 +14,19 @@ export interface ArchiveModel {
   categoryList: Category[];
   tags: Tag[];
   monthsCounts: MonthsCount[];
+  archiveModels: MonthsCount[]
 }
 
 export interface MonthsCount {
   count: number;
   months: string;
+  blogs: MonthsBlogModel[] | undefined
+}
+
+export interface MonthsBlogModel {
+  id: number;
+  title: string;
+  createTime: number
 }
 
 export interface Tag {
