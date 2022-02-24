@@ -3,4 +3,6 @@ export interface TextModel {
     name: string;
     context: string;
     intro?: string;
+    isEncryptionText?: boolean;
+    viewPassword?: string;
 }
