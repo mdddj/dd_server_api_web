@@ -12,7 +12,7 @@ import { ArchiveModel, Tag } from "./model/ArchiveModel";
 import { SystemPicter } from "./model/avater";
 import { extend } from "umi-request";
 import { Friend } from "./model/friend";
-import {ResourceTreeModel} from "./model/ResourceTreeModel";
+import { ResourceTreeModel } from "./model/ResourceTreeModel";
 
 
 interface TokenHandle {
@@ -568,8 +568,8 @@ class DdServerApiByWeb {
      * 获取资源子对象集合
      * @param id 分类ID
      */
-    async getResourceSubObject(id: number) : Promise<Result<ResourceTreeModel>> {
-        return this.requestT<Result<ResourceTreeModel>>('/api/res/sub',{id},'GET')
+    async getResourceSubObject(id: number): Promise<Result<ResourceTreeModel>> {
+        return this.requestT<Result<ResourceTreeModel>>('/api/res/sub', { id }, 'GET')
     }
 
     /**
@@ -577,17 +577,28 @@ class DdServerApiByWeb {
      * 需要管理员权限
      * @param file 上传的内容
      */
-    async uploadFileWithSingle(file: any) : Promise<Result<string>>{
-        return this.requestT<Result<string>>('/api/auth/simple-upload',file,'POST')
+    async uploadFileWithSingle(file: any): Promise<Result<string>> {
+        return this.requestT<Result<string>>('/api/auth/simple-upload', file, 'POST')
     }
 
     /**
      * 创建一个文档子目录,或者修改
      * @param params 参数 [CreateOrUpdateDocDirectoryParam]
      */
-    async createOrUpdateDocDirectory(params: CreateOrUpdateDocDirectoryParam):Promise<Result<ResCategory|string>> {
-        return this.requestT<Result<ResCategory|string>>('/api/auth/cate-director-action',params,'POST')
+    async createOrUpdateDocDirectory(params: CreateOrUpdateDocDirectoryParam): Promise<Result<ResCategory | string>> {
+        return this.requestT<Result<ResCategory | string>>('/api/auth/cate-director-action', params, 'POST')
+    }
 
+    /**
+     * 
+     * 管理员功能
+     * 需要传入管理员账户的token
+     * 查询某个字典的原始密码
+     * @param selectKey 查询的关键字
+     * @returns 原始密码结果
+     */
+    async adminSelectTextOriginPassword(selectKey: string): Promise<Result<string>> {
+        return this.requestT<Result<string>>('/api/auth/text/origin-password-select', { 'key': selectKey }, 'GET')
     }
 
 }

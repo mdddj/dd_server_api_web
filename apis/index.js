@@ -715,6 +715,21 @@ var DdServerApiByWeb = /** @class */ (function () {
             });
         });
     };
+    /**
+     *
+     * 管理员功能
+     * 需要传入管理员账户的token
+     * 查询某个字典的原始密码
+     * @param selectKey 查询的关键字
+     * @returns 原始密码结果
+     */
+    DdServerApiByWeb.prototype.adminSelectTextOriginPassword = function (selectKey) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/auth/text/origin-password-select', { 'key': selectKey }, 'GET')];
+            });
+        });
+    };
     return DdServerApiByWeb;
 }());
 exports.default = DdServerApiByWeb;

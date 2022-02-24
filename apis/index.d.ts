@@ -336,5 +336,14 @@ declare class DdServerApiByWeb {
      * @param params 参数 [CreateOrUpdateDocDirectoryParam]
      */
     createOrUpdateDocDirectory(params: CreateOrUpdateDocDirectoryParam): Promise<Result<ResCategory | string>>;
+    /**
+     *
+     * 管理员功能
+     * 需要传入管理员账户的token
+     * 查询某个字典的原始密码
+     * @param selectKey 查询的关键字
+     * @returns 原始密码结果
+     */
+    adminSelectTextOriginPassword(selectKey: string): Promise<Result<string>>;
 }
 export default DdServerApiByWeb;
