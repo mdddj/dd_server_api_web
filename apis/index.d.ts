@@ -11,6 +11,7 @@ import { ArchiveModel, Tag } from "./model/ArchiveModel";
 import { SystemPicter } from "./model/avater";
 import { Friend } from "./model/friend";
 import { ResourceTreeModel } from "./model/ResourceTreeModel";
+import { ResourceCategoryType } from "./model/ResourceCategoryType";
 /**
  * 接口访问类
  */
@@ -212,7 +213,7 @@ declare class DdServerApiByWeb {
      * @param name 别名
      * @returns
      */
-    getTextByName(name: string): Promise<Result<TextModel>>;
+    getTextByName(name: string, password?: string): Promise<Result<TextModel>>;
     /**
      * 根据标签id 获取博客列表
      * @param tagId 标签id
@@ -345,5 +346,9 @@ declare class DdServerApiByWeb {
      * @returns 原始密码结果
      */
     adminSelectTextOriginPassword(selectKey: string): Promise<Result<string>>;
+    /**
+     * 获取全部ResourceCategory的已存在类型
+     */
+    getResourceCategoryTypes(): Promise<Result<ResourceCategoryType>>;
 }
 export default DdServerApiByWeb;

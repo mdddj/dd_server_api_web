@@ -467,10 +467,11 @@ var DdServerApiByWeb = /** @class */ (function () {
      * @param name 别名
      * @returns
      */
-    DdServerApiByWeb.prototype.getTextByName = function (name) {
+    DdServerApiByWeb.prototype.getTextByName = function (name, password) {
+        if (password === void 0) { password = ''; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT("/api/blog/text?name=" + name)];
+                return [2 /*return*/, this.requestT("/api/blog/text", { password: password, name: name }, 'GET')];
             });
         });
     };
@@ -727,6 +728,16 @@ var DdServerApiByWeb = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.requestT('/api/auth/text/origin-password-select', { 'key': selectKey }, 'GET')];
+            });
+        });
+    };
+    /**
+     * 获取全部ResourceCategory的已存在类型
+     */
+    DdServerApiByWeb.prototype.getResourceCategoryTypes = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/rc/types', {}, 'GET')];
             });
         });
     };

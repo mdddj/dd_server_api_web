@@ -13,6 +13,7 @@ import { SystemPicter } from "./model/avater";
 import { extend } from "umi-request";
 import { Friend } from "./model/friend";
 import { ResourceTreeModel } from "./model/ResourceTreeModel";
+import {ResourceCategoryType} from "./model/ResourceCategoryType";
 
 
 interface TokenHandle {
@@ -391,9 +392,11 @@ class DdServerApiByWeb {
      */
     async getTextByName(
         name: string,
+        password: string = ''
     ): Promise<Result<TextModel>> {
         return this.requestT<Result<TextModel>>(
-            `/api/blog/text?name=${name}`,
+            `/api/blog/text`,
+            { password, name }, 'GET'
         );
     }
 
@@ -600,6 +603,13 @@ class DdServerApiByWeb {
     async adminSelectTextOriginPassword(selectKey: string): Promise<Result<string>> {
         return this.requestT<Result<string>>('/api/auth/text/origin-password-select', { 'key': selectKey }, 'GET')
     }
+
+    /**
+     * 获取全部ResourceCategory的已存在类型
+     */
+    async getResourceCategoryTypes() : Promise<Result<ResourceCategoryType>> {
+        return this.requestT<Result<ResourceCategoryType>>('/api/rc/types',{},'GET')
+}
 
 }
 
