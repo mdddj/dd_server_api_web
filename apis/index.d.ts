@@ -364,5 +364,10 @@ declare class DdServerApiByWeb {
      *
      */
     uploadPublic(file: any): Promise<Result<FileInfo | undefined>>;
+    /**
+     * 删除某个文件
+     * @param id FileInfo 的主键ID
+     */
+    deleteFileinfo(id: number): Promise<Result<boolean>>;
 }
 export default DdServerApiByWeb;

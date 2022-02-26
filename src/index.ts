@@ -626,10 +626,17 @@ class DdServerApiByWeb {
      * @param file 需要上传的文件
      *
      */
-    async uploadPublic(file: any) {
+    async uploadPublic(file: any) : Promise<Result<FileInfo|undefined>>{
         return this.requestT<Result<FileInfo|undefined>>('/api/file/upload',file,'POST','form')
     }
 
+    /**
+     * 删除某个文件
+     * @param id FileInfo 的主键ID
+     */
+    async deleteFileinfo(id: number) :Promise<Result<boolean>> {
+        return this.requestT<Result<boolean>>('/api/file/delete',id,'DELETE')
+    }
 }
 
 export default DdServerApiByWeb

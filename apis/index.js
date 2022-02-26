@@ -766,6 +766,17 @@ var DdServerApiByWeb = /** @class */ (function () {
             });
         });
     };
+    /**
+     * 删除某个文件
+     * @param id FileInfo 的主键ID
+     */
+    DdServerApiByWeb.prototype.deleteFileinfo = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/file/delete', id, 'DELETE')];
+            });
+        });
+    };
     return DdServerApiByWeb;
 }());
 exports.default = DdServerApiByWeb;
