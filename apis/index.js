@@ -123,7 +123,7 @@ var DdServerApiByWeb = /** @class */ (function () {
                 param = method === 'GET' ? data : undefined;
                 postData = method === 'POST' || method === 'DELETE' ? data : undefined;
                 client = this.createClient();
-                return [2 /*return*/, client("" + this.host + url, {
+                return [2 /*return*/, client("".concat(this.host).concat(url), {
                         method: method !== null && method !== void 0 ? method : 'GET',
                         params: param,
                         data: postData,
@@ -176,7 +176,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getUserInfo = function (token) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT("/api/get-user-by-token?token=" + token)];
+                return [2 /*return*/, this.requestT("/api/get-user-by-token?token=".concat(token))];
             });
         });
     };
@@ -457,7 +457,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getBlogWithAlias = function (alias) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT("/api/blog/alias?alias=" + alias)];
+                return [2 /*return*/, this.requestT("/api/blog/alias?alias=".concat(alias))];
             });
         });
     };
@@ -738,6 +738,31 @@ var DdServerApiByWeb = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.requestT('/api/rc/types', {}, 'GET')];
+            });
+        });
+    };
+    /**
+     * 获取版本号列表
+     * @param pageParam 分页参数,必填
+     * @param selectParams 条件查询参数, 选填
+     */
+    DdServerApiByWeb.prototype.getVersionList = function (pageParam, selectParams) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/version/list', Object.assign(pageParam, selectParams), 'GET')];
+            });
+        });
+    };
+    /**
+     * 上传文件通用
+     * 后端接收的字段是 `file`
+     * @param file 需要上传的文件
+     *
+     */
+    DdServerApiByWeb.prototype.uploadPublic = function (file) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/file/upload', file, 'POST', 'form')];
             });
         });
     };

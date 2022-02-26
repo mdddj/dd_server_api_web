@@ -54,7 +54,7 @@ var TaokeApi = /** @class */ (function () {
          * 大淘客api
          */
         get: function () {
-            return "" + this._host + TAOKE_API;
+            return "".concat(this._host).concat(TAOKE_API);
         },
         enumerable: false,
         configurable: true
@@ -98,7 +98,7 @@ var TaokeApi = /** @class */ (function () {
                         var result;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
-                                case 0: return [4 /*yield*/, (0, umi_request_1.default)("" + ((taoke !== null && taoke !== void 0 ? taoke : true) ? this.url : this._host) + url, {
+                                case 0: return [4 /*yield*/, (0, umi_request_1.default)("".concat((taoke !== null && taoke !== void 0 ? taoke : true) ? this.url : this._host).concat(url), {
                                         method: "GET",
                                         params: param
                                     })];

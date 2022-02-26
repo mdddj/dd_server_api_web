@@ -1,19 +1,20 @@
 import ServerUtil from "./utils/ServerUtil";
-import { Page, PagerModel, Result } from "./utils/ResultUtil";
-import { User } from "./model/UserModel";
+import {Page, PagerModel, Result} from "./utils/ResultUtil";
+import {User} from "./model/UserModel";
 import PushNewBlogParams from "./model/param/PushNewBlogParamsModel";
-import { BlogData, BlogListData, BlogPushNewResultData, Category } from "./model/result/BlogPushNewResultData";
-import { PageParam } from "./model/PageModel";
-import { ResCategory } from "./model/ResCategory";
-import { FileInfo } from "./model/FileInfo";
-import { PublishPostResult, ResourceModel } from "./model/ResourceModel";
-import { TextModel } from "./model/TextModel";
-import { ArchiveModel, Tag } from "./model/ArchiveModel";
-import { SystemPicter } from "./model/avater";
-import { extend } from "umi-request";
-import { Friend } from "./model/friend";
-import { ResourceTreeModel } from "./model/ResourceTreeModel";
+import {BlogData, BlogListData, BlogPushNewResultData, Category} from "./model/result/BlogPushNewResultData";
+import {PageParam} from "./model/PageModel";
+import {ResCategory} from "./model/ResCategory";
+import {FileInfo} from "./model/FileInfo";
+import {PublishPostResult, ResourceModel} from "./model/ResourceModel";
+import {TextModel} from "./model/TextModel";
+import {ArchiveModel, Tag} from "./model/ArchiveModel";
+import {SystemPicter} from "./model/avater";
+import {extend} from "umi-request";
+import {Friend} from "./model/friend";
+import {ResourceTreeModel} from "./model/ResourceTreeModel";
 import {ResourceCategoryType} from "./model/ResourceCategoryType";
+import {VersionSelectParamModel} from "./model/VersionSelectParamModel";
 
 
 interface TokenHandle {
@@ -77,13 +78,12 @@ class DdServerApiByWeb {
             client.interceptors.request.use((url: any, options: any) => {
                 return {
                     url,
-                    options: { ...options, headers: authHeader, interceptors: true }
+                    options: {...options, headers: authHeader, interceptors: true}
                 }
-            }, { global: false })
+            }, {global: false})
         }
         return client;
     }
-
 
 
     /**
@@ -122,7 +122,7 @@ class DdServerApiByWeb {
      * @param password  密码
      */
     async login(loginNumber: string, password: string): Promise<Result<string>> {
-        return this.requestT<Result<string>>('/api/user/login', { loginNumber, password }, 'POST');
+        return this.requestT<Result<string>>('/api/user/login', {loginNumber, password}, 'POST');
     }
 
     /**
@@ -226,7 +226,7 @@ class DdServerApiByWeb {
      * @constructor
      */
     async getFolders(id?: number): Promise<Result<ResCategory[]>> {
-        return this.requestT<Result<ResCategory[]>>('/api/file/get-folders', { id });
+        return this.requestT<Result<ResCategory[]>>('/api/file/get-folders', {id});
     }
 
     /**
@@ -239,7 +239,7 @@ class DdServerApiByWeb {
         folderId: number,
         pageModel: PageParam,
     ): Promise<Result<Page<FileInfo>>> {
-        return this.requestT<Result<Page<FileInfo>>>('/api/file/get-files', Object.assign({ id: folderId }, pageModel));
+        return this.requestT<Result<Page<FileInfo>>>('/api/file/get-files', Object.assign({id: folderId}, pageModel));
     }
 
     /**
@@ -303,7 +303,7 @@ class DdServerApiByWeb {
      * @constructor
      */
     async findResCategoryListByNameLike(name: string) {
-        return this.requestT('/api/res/like-list', { name });
+        return this.requestT('/api/res/like-list', {name});
     }
 
     /**
@@ -352,7 +352,7 @@ class DdServerApiByWeb {
      * @param id 主键
      */
     async deleteTextById(id: string): Promise<Result<string>> {
-        return this.requestT<Result<string>>('/api/auth/text-delete', { id }, 'DELETE');
+        return this.requestT<Result<string>>('/api/auth/text-delete', {id}, 'DELETE');
     }
 
     /**
@@ -396,7 +396,7 @@ class DdServerApiByWeb {
     ): Promise<Result<TextModel>> {
         return this.requestT<Result<TextModel>>(
             `/api/blog/text`,
-            { password, name }, 'GET'
+            {password, name}, 'GET'
         );
     }
 
@@ -407,7 +407,7 @@ class DdServerApiByWeb {
      * @param pageModel 分页数据
      */
     async getBlogsByTagId(tagId: number, pageModel: PageParam): Promise<Result<Page<BlogData>>> {
-        return this.requestT<Result<Page<BlogData>>>('/api/blog/tag/blogs', Object.assign({ tagId }, pageModel)
+        return this.requestT<Result<Page<BlogData>>>('/api/blog/tag/blogs', Object.assign({tagId}, pageModel)
         )
     }
 
@@ -417,7 +417,7 @@ class DdServerApiByWeb {
      * @param pageModel 分类数据
      */
     async getBlogsByCategoryId(categoryId: number, pageModel: PageParam): Promise<Result<Page<BlogData>>> {
-        return this.requestT<Result<Page<BlogData>>>('/api/blog/category/blogs', Object.assign({ categoryId }, pageModel))
+        return this.requestT<Result<Page<BlogData>>>('/api/blog/category/blogs', Object.assign({categoryId}, pageModel))
     }
 
 
@@ -427,7 +427,7 @@ class DdServerApiByWeb {
      * @param pageModel 分类数据
      */
     async getBlogsByMonth(month: string, pageModel: PageParam): Promise<Result<Page<BlogData>>> {
-        return this.requestT<Result<Page<BlogData>>>('/api/blog/month/blogs', Object.assign({ month }, pageModel))
+        return this.requestT<Result<Page<BlogData>>>('/api/blog/month/blogs', Object.assign({month}, pageModel))
     }
 
     /**
@@ -435,7 +435,7 @@ class DdServerApiByWeb {
      * @param type 图片类型， 用户头像传 1
      */
     async getPics(type: number): Promise<Result<SystemPicter[]>> {
-        return this.requestT<Result<SystemPicter[]>>('/api/pic/list', { 'type': type })
+        return this.requestT<Result<SystemPicter[]>>('/api/pic/list', {'type': type})
     }
 
 
@@ -469,7 +469,7 @@ class DdServerApiByWeb {
      * @param name  插件名
      */
     async getFlutterPluginInfo(name: string): Promise<Result<String>> {
-        return this.requestT<Result<string>>('/api/text/flutter-flugin', { 'name': name }, 'GET')
+        return this.requestT<Result<string>>('/api/text/flutter-flugin', {'name': name}, 'GET')
     }
 
 
@@ -500,17 +500,17 @@ class DdServerApiByWeb {
      * @returns 分类对象
      */
     async findBlogCategoryByName(name: string): Promise<Result<Category | undefined>> {
-        return this.requestT<Result<Category | undefined>>('/api/blog/category/findByName', { name }, 'GET')
+        return this.requestT<Result<Category | undefined>>('/api/blog/category/findByName', {name}, 'GET')
     }
 
     /**
-     * 
+     *
      * 修改一个友情链接的数据
      * 注意事项：
      * 1. id不能为空
      * 2. 需要管理员权限
      * @param params 需要修改的参数
-     * @returns 
+     * @returns
      */
     async updateFriendsObject(params: any): Promise<Result<Friend>> {
         return this.requestT<Result<Friend>>('/api/auth/update-friends-obj', params, 'POST')
@@ -522,7 +522,7 @@ class DdServerApiByWeb {
      * @returns 操作结果
      */
     async deleteFriendObject(id: number): Promise<Result<any>> {
-        return this.requestT<Result<any>>('/api/auth/delete-friends-obj', { id }, 'DELETE')
+        return this.requestT<Result<any>>('/api/auth/delete-friends-obj', {id}, 'DELETE')
     }
 
     /**
@@ -537,13 +537,13 @@ class DdServerApiByWeb {
      * @returns 处理结果字符串
      */
     async sendEmail(email: string, title: string, content: string, html: boolean): Promise<Result<string>> {
-        return this.requestT<Result<string>>('/api/auth/send-email', { email, title, content, html }, 'POST')
+        return this.requestT<Result<string>>('/api/auth/send-email', {email, title, content, html}, 'POST')
     }
 
     /**
      * 发布动态
      * @param data 数据
-     * @returns 
+     * @returns
      */
     async publishPost(data: any): Promise<Result<PublishPostResult>> {
         return this.requestT<Result<PublishPostResult>>('/api/resource/add-post', data, 'POST', 'form')
@@ -552,10 +552,10 @@ class DdServerApiByWeb {
     /**
      * 删除一个资源
      * @param id    资源ID
-     * @returns 
+     * @returns
      */
     async deleteResource(id: number) {
-        return this.requestT<Result<string>>('/api/resource/delete', { id }, 'DELETE')
+        return this.requestT<Result<string>>('/api/resource/delete', {id}, 'DELETE')
     }
 
     /**
@@ -572,7 +572,7 @@ class DdServerApiByWeb {
      * @param id 分类ID
      */
     async getResourceSubObject(id: number): Promise<Result<ResourceTreeModel>> {
-        return this.requestT<Result<ResourceTreeModel>>('/api/res/sub', { id }, 'GET')
+        return this.requestT<Result<ResourceTreeModel>>('/api/res/sub', {id}, 'GET')
     }
 
     /**
@@ -593,7 +593,7 @@ class DdServerApiByWeb {
     }
 
     /**
-     * 
+     *
      * 管理员功能
      * 需要传入管理员账户的token
      * 查询某个字典的原始密码
@@ -601,15 +601,34 @@ class DdServerApiByWeb {
      * @returns 原始密码结果
      */
     async adminSelectTextOriginPassword(selectKey: string): Promise<Result<string>> {
-        return this.requestT<Result<string>>('/api/auth/text/origin-password-select', { 'key': selectKey }, 'GET')
+        return this.requestT<Result<string>>('/api/auth/text/origin-password-select', {'key': selectKey}, 'GET')
     }
 
     /**
      * 获取全部ResourceCategory的已存在类型
      */
-    async getResourceCategoryTypes() : Promise<Result<ResourceCategoryType>> {
-        return this.requestT<Result<ResourceCategoryType>>('/api/rc/types',{},'GET')
-}
+    async getResourceCategoryTypes(): Promise<Result<ResourceCategoryType>> {
+        return this.requestT<Result<ResourceCategoryType>>('/api/rc/types', {}, 'GET')
+    }
+
+    /**
+     * 获取版本号列表
+     * @param pageParam 分页参数,必填
+     * @param selectParams 条件查询参数, 选填
+     */
+    async getVersionList(pageParam: PageParam, selectParams?: VersionSelectParamModel): Promise<Result<any>> {
+        return this.requestT<Promise<Result<any>>>('/api/version/list', Object.assign(pageParam, selectParams), 'GET')
+    }
+
+    /**
+     * 上传文件通用
+     * 后端接收的字段是 `file`
+     * @param file 需要上传的文件
+     *
+     */
+    async uploadPublic(file: any) {
+        return this.requestT<Result<FileInfo|undefined>>('/api/file/upload',file,'POST','form')
+    }
 
 }
 

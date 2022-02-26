@@ -12,6 +12,7 @@ import { SystemPicter } from "./model/avater";
 import { Friend } from "./model/friend";
 import { ResourceTreeModel } from "./model/ResourceTreeModel";
 import { ResourceCategoryType } from "./model/ResourceCategoryType";
+import { VersionSelectParamModel } from "./model/VersionSelectParamModel";
 /**
  * 接口访问类
  */
@@ -350,5 +351,18 @@ declare class DdServerApiByWeb {
      * 获取全部ResourceCategory的已存在类型
      */
     getResourceCategoryTypes(): Promise<Result<ResourceCategoryType>>;
+    /**
+     * 获取版本号列表
+     * @param pageParam 分页参数,必填
+     * @param selectParams 条件查询参数, 选填
+     */
+    getVersionList(pageParam: PageParam, selectParams?: VersionSelectParamModel): Promise<Result<any>>;
+    /**
+     * 上传文件通用
+     * 后端接收的字段是 `file`
+     * @param file 需要上传的文件
+     *
+     */
+    uploadPublic(file: any): Promise<Result<FileInfo | undefined>>;
 }
 export default DdServerApiByWeb;

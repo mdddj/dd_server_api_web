@@ -17,7 +17,7 @@ var ServerUtil = /** @class */ (function () {
         },
         set: function (value) {
             this._host = value;
-            console.log("\u521D\u59CB\u5316host\u6210\u529F,host is :  " + value);
+            console.log("\u521D\u59CB\u5316host\u6210\u529F,host is :  ".concat(value));
         },
         enumerable: false,
         configurable: true
