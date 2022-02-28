@@ -212,6 +212,7 @@ declare class DdServerApiByWeb {
      *
      * 获取特殊文本
      * @param name 别名
+     * @param password 用户输入的密码
      * @returns
      */
     getTextByName(name: string, password?: string): Promise<Result<TextModel>>;
@@ -369,5 +370,12 @@ declare class DdServerApiByWeb {
      * @param id FileInfo 的主键ID
      */
     deleteFileinfo(id: number): Promise<Result<boolean>>;
+    /**
+     * [需要管理员的权限]
+     * 这是一个管理员功能, 专门用来修改的用户的密码,重新设置密码,但是需要记住以前设置的密码才能修改
+     * @param currentPass 当前账号的密码
+     * @param rePassword 重新设置的密码
+     */
+    updateUserPasswordWithAdmin(currentPass: string, rePassword: string): Promise<Result<string>>;
 }
 export default DdServerApiByWeb;

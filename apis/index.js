@@ -465,6 +465,7 @@ var DdServerApiByWeb = /** @class */ (function () {
      *
      * 获取特殊文本
      * @param name 别名
+     * @param password 用户输入的密码
      * @returns
      */
     DdServerApiByWeb.prototype.getTextByName = function (name, password) {
@@ -774,6 +775,19 @@ var DdServerApiByWeb = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.requestT('/api/file/delete', id, 'DELETE')];
+            });
+        });
+    };
+    /**
+     * [需要管理员的权限]
+     * 这是一个管理员功能, 专门用来修改的用户的密码,重新设置密码,但是需要记住以前设置的密码才能修改
+     * @param currentPass 当前账号的密码
+     * @param rePassword 重新设置的密码
+     */
+    DdServerApiByWeb.prototype.updateUserPasswordWithAdmin = function (currentPass, rePassword) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/auth/user-update-pass', { currentPass: currentPass, rePassword: rePassword }, 'POST')];
             });
         });
     };

@@ -388,6 +388,7 @@ class DdServerApiByWeb {
      *
      * 获取特殊文本
      * @param name 别名
+     * @param password 用户输入的密码
      * @returns
      */
     async getTextByName(
@@ -636,6 +637,16 @@ class DdServerApiByWeb {
      */
     async deleteFileinfo(id: number) :Promise<Result<boolean>> {
         return this.requestT<Result<boolean>>('/api/file/delete',id,'DELETE')
+    }
+
+    /**
+     * [需要管理员的权限]
+     * 这是一个管理员功能, 专门用来修改的用户的密码,重新设置密码,但是需要记住以前设置的密码才能修改
+     * @param currentPass 当前账号的密码
+     * @param rePassword 重新设置的密码
+     */
+    async updateUserPasswordWithAdmin(currentPass: string, rePassword: string) : Promise<Result<string>> {
+        return this.requestT<Result<string>>('/api/auth/user-update-pass',{currentPass,rePassword},'POST')
     }
 }
 
