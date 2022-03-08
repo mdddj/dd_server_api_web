@@ -148,11 +148,12 @@ var DdServerApiByWeb = /** @class */ (function () {
      * 用户登录方法
      * @param loginNumber   登录名
      * @param password  密码
+     * @param imageCode 图片验证码
      */
-    DdServerApiByWeb.prototype.login = function (loginNumber, password) {
+    DdServerApiByWeb.prototype.login = function (loginNumber, password, imageCode) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT('/api/user/login', { loginNumber: loginNumber, password: password }, 'POST')];
+                return [2 /*return*/, this.requestT('/api/user/login', { loginNumber: loginNumber, password: password, imageCode: imageCode }, 'POST', 'form')];
             });
         });
     };

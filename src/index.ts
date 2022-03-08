@@ -120,9 +120,10 @@ class DdServerApiByWeb {
      * 用户登录方法
      * @param loginNumber   登录名
      * @param password  密码
+     * @param imageCode 图片验证码
      */
-    async login(loginNumber: string, password: string): Promise<Result<string>> {
-        return this.requestT<Result<string>>('/api/user/login', {loginNumber, password}, 'POST');
+    async login(loginNumber: string, password: string,imageCode?: string): Promise<Result<string>> {
+        return this.requestT<Result<string>>('/api/user/login', {loginNumber, password,imageCode}, 'POST','form');
     }
 
     /**

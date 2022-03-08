@@ -59,8 +59,9 @@ declare class DdServerApiByWeb {
      * 用户登录方法
      * @param loginNumber   登录名
      * @param password  密码
+     * @param imageCode 图片验证码
      */
-    login(loginNumber: string, password: string): Promise<Result<string>>;
+    login(loginNumber: string, password: string, imageCode?: string): Promise<Result<string>>;
     /**
      * 退出登录
      */
