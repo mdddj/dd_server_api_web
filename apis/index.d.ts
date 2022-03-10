@@ -378,5 +378,11 @@ declare class DdServerApiByWeb {
      * @param rePassword 重新设置的密码
      */
     updateUserPasswordWithAdmin(currentPass: string, rePassword: string): Promise<Result<string>>;
+    /**
+     * 获取用户信息
+     * @param id 用户ID
+     * @param loginNumber 用户登录名
+     */
+    getUserDetail(id?: number, loginNumber?: string): Promise<Result<User | undefined>>;
 }
 export default DdServerApiByWeb;

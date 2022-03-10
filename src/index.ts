@@ -649,6 +649,15 @@ class DdServerApiByWeb {
     async updateUserPasswordWithAdmin(currentPass: string, rePassword: string) : Promise<Result<string>> {
         return this.requestT<Result<string>>('/api/auth/user-update-pass',{currentPass,rePassword},'POST')
     }
+
+    /**
+     * 获取用户信息
+     * @param id 用户ID
+     * @param loginNumber 用户登录名
+     */
+    async getUserDetail(id?:number,loginNumber?:string) : Promise<Result<User|undefined>> {
+        return this.requestT<Result<User|undefined>>('/api/user/detail',{id,loginNumber})
+    }
 }
 
 export default DdServerApiByWeb

@@ -792,6 +792,18 @@ var DdServerApiByWeb = /** @class */ (function () {
             });
         });
     };
+    /**
+     * 获取用户信息
+     * @param id 用户ID
+     * @param loginNumber 用户登录名
+     */
+    DdServerApiByWeb.prototype.getUserDetail = function (id, loginNumber) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/user/detail', { id: id, loginNumber: loginNumber })];
+            });
+        });
+    };
     return DdServerApiByWeb;
 }());
 exports.default = DdServerApiByWeb;
