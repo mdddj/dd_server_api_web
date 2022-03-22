@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && yalc push",
+    "push": "yalc push",
     "run:test": "ts-node src/test.ts"
   },
   "devDependencies": {

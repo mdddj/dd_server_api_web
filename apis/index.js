@@ -804,6 +804,23 @@ var DdServerApiByWeb = /** @class */ (function () {
             });
         });
     };
+    /**
+     * 查询某个资源下的动态列表
+     * @param page 分页数据
+     * @param categoryId 可选  分类ID
+     * @param params 可以 条件筛选参数
+     * @param paramsHandle 参数回调
+     */
+    DdServerApiByWeb.prototype.getResourceList = function (page, categoryId, params, paramsHandle) {
+        return __awaiter(this, void 0, void 0, function () {
+            var obj;
+            return __generator(this, function (_a) {
+                obj = Object.assign({ categoryId: categoryId }, page, params);
+                paramsHandle && paramsHandle(obj);
+                return [2 /*return*/, this.requestT('/api/resource/list', obj)];
+            });
+        });
+    };
     return DdServerApiByWeb;
 }());
 exports.default = DdServerApiByWeb;

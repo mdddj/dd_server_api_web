@@ -658,6 +658,19 @@ class DdServerApiByWeb {
     async getUserDetail(id?:number,loginNumber?:string) : Promise<Result<User|undefined>> {
         return this.requestT<Result<User|undefined>>('/api/user/detail',{id,loginNumber})
     }
+
+    /**
+     * 查询某个资源下的动态列表
+     * @param page 分页数据
+     * @param categoryId 可选  分类ID
+     * @param params 可以 条件筛选参数
+     * @param paramsHandle 参数回调
+     */
+    async getResourceList(page: PageParam,categoryId?: number,params?: any,paramsHandle?: (p: any)=>void): Promise<Result<{page: PagerModel,list: ResourceModel[]}>> {
+        let obj = Object.assign({categoryId:categoryId},page,params)
+        paramsHandle &&  paramsHandle(obj)
+        return this.requestT<Result<{page: PagerModel,list: ResourceModel[]}>>('/api/resource/list',obj)
+    }
 }
 
 export default DdServerApiByWeb

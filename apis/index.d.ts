@@ -384,5 +384,16 @@ declare class DdServerApiByWeb {
      * @param loginNumber 用户登录名
      */
     getUserDetail(id?: number, loginNumber?: string): Promise<Result<User | undefined>>;
+    /**
+     * 查询某个资源下的动态列表
+     * @param page 分页数据
+     * @param categoryId 可选  分类ID
+     * @param params 可以 条件筛选参数
+     * @param paramsHandle 参数回调
+     */
+    getResourceList(page: PageParam, categoryId?: number, params?: any, paramsHandle?: (p: any) => void): Promise<Result<{
+        page: PagerModel;
+        list: ResourceModel[];
+    }>>;
 }
 export default DdServerApiByWeb;
