@@ -122,8 +122,8 @@ class DdServerApiByWeb {
      * @param password  密码
      * @param imageCode 图片验证码
      */
-    async login(loginNumber: string, password: string,imageCode?: string): Promise<Result<string>> {
-        return this.requestT<Result<string>>('/api/user/login', {loginNumber, password,imageCode}, 'POST','form');
+    async login(loginNumber: string, password: string, imageCode?: string): Promise<Result<string>> {
+        return this.requestT<Result<string>>('/api/user/login', {loginNumber, password, imageCode}, 'POST', 'form');
     }
 
     /**
@@ -628,16 +628,16 @@ class DdServerApiByWeb {
      * @param file 需要上传的文件
      *
      */
-    async uploadPublic(file: any) : Promise<Result<FileInfo|undefined>>{
-        return this.requestT<Result<FileInfo|undefined>>('/api/file/upload',file,'POST','form')
+    async uploadPublic(file: any): Promise<Result<FileInfo | undefined>> {
+        return this.requestT<Result<FileInfo | undefined>>('/api/file/upload', file, 'POST', 'form')
     }
 
     /**
      * 删除某个文件
      * @param id FileInfo 的主键ID
      */
-    async deleteFileinfo(id: number) :Promise<Result<boolean>> {
-        return this.requestT<Result<boolean>>('/api/file/delete',id,'DELETE')
+    async deleteFileinfo(id: number): Promise<Result<boolean>> {
+        return this.requestT<Result<boolean>>('/api/file/delete', id, 'DELETE')
     }
 
     /**
@@ -646,8 +646,8 @@ class DdServerApiByWeb {
      * @param currentPass 当前账号的密码
      * @param rePassword 重新设置的密码
      */
-    async updateUserPasswordWithAdmin(currentPass: string, rePassword: string) : Promise<Result<string>> {
-        return this.requestT<Result<string>>('/api/auth/user-update-pass',{currentPass,rePassword},'POST')
+    async updateUserPasswordWithAdmin(currentPass: string, rePassword: string): Promise<Result<string>> {
+        return this.requestT<Result<string>>('/api/auth/user-update-pass', {currentPass, rePassword}, 'POST')
     }
 
     /**
@@ -655,8 +655,8 @@ class DdServerApiByWeb {
      * @param id 用户ID
      * @param loginNumber 用户登录名
      */
-    async getUserDetail(id?:number,loginNumber?:string) : Promise<Result<User|undefined>> {
-        return this.requestT<Result<User|undefined>>('/api/user/detail',{id,loginNumber})
+    async getUserDetail(id?: number, loginNumber?: string): Promise<Result<User | undefined>> {
+        return this.requestT<Result<User | undefined>>('/api/user/detail', {id, loginNumber})
     }
 
     /**
@@ -666,23 +666,23 @@ class DdServerApiByWeb {
      * @param params 可以 条件筛选参数
      * @param paramsHandle 参数回调
      */
-    async getResourceList(page: PageParam,categoryId?: number,params?: any,paramsHandle?: (p: any)=>void): Promise<Result<{page: PagerModel,list: ResourceModel[]}>> {
-        let obj = Object.assign(page,{categoryId:categoryId})
-        paramsHandle &&  paramsHandle(obj)
-        return this.requestT<Result<{page: PagerModel,list: ResourceModel[]}>>('/api/resource/list',obj)
+    async getResourceList(page: PageParam, categoryId?: number, params?: any, paramsHandle?: (p: any) => void): Promise<Result<{ page: PagerModel, list: ResourceModel[] }>> {
+        let obj = Object.assign(page, {categoryId: categoryId})
+        paramsHandle && paramsHandle(obj)
+        return this.requestT<Result<{ page: PagerModel, list: ResourceModel[] }>>('/api/resource/list', obj)
     }
 
     /**
      * 获取全部动态类型
      */
-    async getResourceAllTypes() : Promise<Result<{count: number,type: string}[]>>{
-        return this.requestT<Result<{count: number,type: string}[]>>('/api/rc/types')
+    async getResourceAllTypes(): Promise<Result<{ count: number, type: string }[]>> {
+        return this.requestT<Result<{ count: number, type: string }[]>>('/api/rc/types')
     }
 
     /**
      * 获取全部资源分类列表
      */
-    async getResourceCategoryAll(): Promise<Result<ResCategory[]>>{
+    async getResourceCategoryAll(): Promise<Result<ResCategory[]>> {
         return this.requestT<Result<ResCategory[]>>('/api/res/all')
     }
 }
