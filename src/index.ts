@@ -667,9 +667,23 @@ class DdServerApiByWeb {
      * @param paramsHandle 参数回调
      */
     async getResourceList(page: PageParam,categoryId?: number,params?: any,paramsHandle?: (p: any)=>void): Promise<Result<{page: PagerModel,list: ResourceModel[]}>> {
-        let obj = Object.assign({categoryId:categoryId},page,params)
+        let obj = Object.assign(page,{categoryId:categoryId})
         paramsHandle &&  paramsHandle(obj)
         return this.requestT<Result<{page: PagerModel,list: ResourceModel[]}>>('/api/resource/list',obj)
+    }
+
+    /**
+     * 获取全部动态类型
+     */
+    async getResourceAllTypes() : Promise<Result<{count: number,type: string}[]>>{
+        return this.requestT<Result<{count: number,type: string}[]>>('/api/rc/types')
+    }
+
+    /**
+     * 获取全部资源分类列表
+     */
+    async getResourceCategoryAll(): Promise<Result<ResCategory[]>>{
+        return this.requestT<Result<ResCategory[]>>('/api/res/all')
     }
 }
 

@@ -815,9 +815,29 @@ var DdServerApiByWeb = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             var obj;
             return __generator(this, function (_a) {
-                obj = Object.assign({ categoryId: categoryId }, page, params);
+                obj = Object.assign(page, { categoryId: categoryId });
                 paramsHandle && paramsHandle(obj);
                 return [2 /*return*/, this.requestT('/api/resource/list', obj)];
+            });
+        });
+    };
+    /**
+     * 获取全部动态类型
+     */
+    DdServerApiByWeb.prototype.getResourceAllTypes = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/rc/types')];
+            });
+        });
+    };
+    /**
+     * 获取全部资源分类列表
+     */
+    DdServerApiByWeb.prototype.getResourceCategoryAll = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.requestT('/api/res/all')];
             });
         });
     };

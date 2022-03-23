@@ -395,5 +395,16 @@ declare class DdServerApiByWeb {
         page: PagerModel;
         list: ResourceModel[];
     }>>;
+    /**
+     * 获取全部动态类型
+     */
+    getResourceAllTypes(): Promise<Result<{
+        count: number;
+        type: string;
+    }[]>>;
+    /**
+     * 获取全部资源分类列表
+     */
+    getResourceCategoryAll(): Promise<Result<ResCategory[]>>;
 }
 export default DdServerApiByWeb;
