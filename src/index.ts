@@ -71,14 +71,13 @@ class DdServerApiByWeb {
     createClient() {
         let client = extend({});
         if (this.token) {
-
             const authHeader = {
                 Authorization: this.token,
             };
             client.interceptors.request.use((url: any, options: any) => {
                 return {
                     url,
-                    options: {...options, headers: authHeader, interceptors: true}
+                    options: {...options, headers: authHeader, interceptors: true,}
                 }
             }, {global: false})
         }
@@ -103,7 +102,9 @@ class DdServerApiByWeb {
             method: method ?? 'GET',
             params: param,
             data: postData,
-            requestType: requestType ??= 'json'
+            requestType: requestType ??= 'json',
+            credentials: 'include'
+
         })
     }
 
