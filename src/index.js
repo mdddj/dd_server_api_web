@@ -46,11 +46,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var ServerUtil_1 = __importDefault(require("./utils/ServerUtil"));
+exports.__esModule = true;
+var ServerUtil_1 = require("./utils/ServerUtil");
 var umi_request_1 = require("umi-request");
 /**
  * 接口访问类
@@ -61,7 +58,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     Object.defineProperty(DdServerApiByWeb.prototype, "host", {
         get: function () {
             var _a;
-            return (_a = this._host) !== null && _a !== void 0 ? _a : ServerUtil_1.default.getInstance().host;
+            return (_a = this._host) !== null && _a !== void 0 ? _a : ServerUtil_1["default"].getInstance().host;
         },
         set: function (v) {
             this._host = v;
@@ -97,7 +94,7 @@ var DdServerApiByWeb = /** @class */ (function () {
         var client = (0, umi_request_1.extend)({});
         if (this.token) {
             var authHeader_1 = {
-                Authorization: this.token,
+                Authorization: this.token
             };
             client.interceptors.request.use(function (url, options) {
                 return {
@@ -123,7 +120,7 @@ var DdServerApiByWeb = /** @class */ (function () {
                 param = method === 'GET' ? data : undefined;
                 postData = method === 'POST' || method === 'DELETE' ? data : undefined;
                 client = this.createClient();
-                return [2 /*return*/, client("".concat(this.host).concat(url), {
+                return [2 /*return*/, client("" + this.host + url, {
                         method: method !== null && method !== void 0 ? method : 'GET',
                         params: param,
                         data: postData,
@@ -148,12 +145,11 @@ var DdServerApiByWeb = /** @class */ (function () {
      * 用户登录方法
      * @param loginNumber   登录名
      * @param password  密码
-     * @param imageCode 图片验证码
      */
-    DdServerApiByWeb.prototype.login = function (loginNumber, password, imageCode) {
+    DdServerApiByWeb.prototype.login = function (loginNumber, password) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT('/api/user/login', { loginNumber: loginNumber, password: password, imageCode: imageCode }, 'POST', 'form')];
+                return [2 /*return*/, this.requestT('/api/user/login', { loginNumber: loginNumber, password: password }, 'POST')];
             });
         });
     };
@@ -177,7 +173,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getUserInfo = function (token) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT("/api/get-user-by-token?token=".concat(token))];
+                return [2 /*return*/, this.requestT("/api/get-user-by-token?token=" + token)];
             });
         });
     };
@@ -199,7 +195,7 @@ var DdServerApiByWeb = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.requestT('/api/auth/blog-delete', {
-                        id: blogId,
+                        id: blogId
                     }, 'DELETE')];
             });
         });
@@ -320,7 +316,7 @@ var DdServerApiByWeb = /** @class */ (function () {
             return __generator(this, function (_a) {
                 cate = {
                     name: name,
-                    type: 'folder',
+                    type: 'folder'
                 };
                 if (parenFolder) {
                     cate.parentNode = parenFolder;
@@ -402,7 +398,7 @@ var DdServerApiByWeb = /** @class */ (function () {
                 return [2 /*return*/, this.requestT("/api/text/list", {
                         page: page,
                         pageSize: pageSize,
-                        name: name,
+                        name: name
                     })];
             });
         });
@@ -458,7 +454,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.getBlogWithAlias = function (alias) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT("/api/blog/alias?alias=".concat(alias))];
+                return [2 /*return*/, this.requestT("/api/blog/alias?alias=" + alias)];
             });
         });
     };
@@ -466,7 +462,6 @@ var DdServerApiByWeb = /** @class */ (function () {
      *
      * 获取特殊文本
      * @param name 别名
-     * @param password 用户输入的密码
      * @returns
      */
     DdServerApiByWeb.prototype.getTextByName = function (name, password) {
@@ -755,116 +750,6 @@ var DdServerApiByWeb = /** @class */ (function () {
             });
         });
     };
-    /**
-     * 上传文件通用
-     * 后端接收的字段是 `file`
-     * @param file 需要上传的文件
-     *
-     */
-    DdServerApiByWeb.prototype.uploadPublic = function (file) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT('/api/file/upload', file, 'POST', 'form')];
-            });
-        });
-    };
-    /**
-     * 删除某个文件
-     * @param id FileInfo 的主键ID
-     */
-    DdServerApiByWeb.prototype.deleteFileinfo = function (id) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT('/api/file/delete', id, 'DELETE')];
-            });
-        });
-    };
-    /**
-     * [需要管理员的权限]
-     * 这是一个管理员功能, 专门用来修改的用户的密码,重新设置密码,但是需要记住以前设置的密码才能修改
-     * @param currentPass 当前账号的密码
-     * @param rePassword 重新设置的密码
-     */
-    DdServerApiByWeb.prototype.updateUserPasswordWithAdmin = function (currentPass, rePassword) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT('/api/auth/user-update-pass', { currentPass: currentPass, rePassword: rePassword }, 'POST')];
-            });
-        });
-    };
-    /**
-     * 获取用户信息
-     * @param id 用户ID
-     * @param loginNumber 用户登录名
-     */
-    DdServerApiByWeb.prototype.getUserDetail = function (id, loginNumber) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT('/api/user/detail', { id: id, loginNumber: loginNumber })];
-            });
-        });
-    };
-    /**
-     * 查询某个资源下的动态列表
-     * @param page 分页数据
-     * @param categoryId 可选  分类ID
-     * @param params 可以 条件筛选参数
-     * @param paramsHandle 参数回调
-     */
-    DdServerApiByWeb.prototype.getResourceList = function (page, categoryId, params, paramsHandle) {
-        return __awaiter(this, void 0, void 0, function () {
-            var obj;
-            return __generator(this, function (_a) {
-                obj = Object.assign(page, { categoryId: categoryId });
-                paramsHandle && paramsHandle(obj);
-                return [2 /*return*/, this.requestT('/api/resource/list', obj)];
-            });
-        });
-    };
-    /**
-     * 获取全部动态类型
-     */
-    DdServerApiByWeb.prototype.getResourceAllTypes = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT('/api/rc/types')];
-            });
-        });
-    };
-    /**
-     * 获取全部资源分类列表
-     */
-    DdServerApiByWeb.prototype.getResourceCategoryAll = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT('/api/res/all')];
-            });
-        });
-    };
-    /**
-     *
-     * 提交一个留言
-     * @param params 留言参数
-     */
-    DdServerApiByWeb.prototype.submitComment = function (params) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT('/api/comment/add', params, 'POST')];
-            });
-        });
-    };
-    /**
-     * 查询评论列表
-     * @param params 查询参数
-     * @returns 查询结果
-     */
-    DdServerApiByWeb.prototype.findComment = function (params) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT('/api/comment/find', params, 'GET')];
-            });
-        });
-    };
     return DdServerApiByWeb;
 }());
-exports.default = DdServerApiByWeb;
+exports["default"] = DdServerApiByWeb;

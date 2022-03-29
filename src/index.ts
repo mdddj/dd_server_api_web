@@ -15,6 +15,8 @@ import {Friend} from "./model/friend";
 import {ResourceTreeModel} from "./model/ResourceTreeModel";
 import {ResourceCategoryType} from "./model/ResourceCategoryType";
 import {VersionSelectParamModel} from "./model/VersionSelectParamModel";
+import { SelectCommentParams } from "./model/param/SelectCommentParams";
+import { Comment } from "./model/Comment";
 
 
 interface TokenHandle {
@@ -102,8 +104,7 @@ class DdServerApiByWeb {
             method: method ?? 'GET',
             params: param,
             data: postData,
-            requestType: requestType ??= 'json',
-            credentials: 'include'
+            requestType: requestType ??= 'json'
 
         })
     }
@@ -685,6 +686,31 @@ class DdServerApiByWeb {
      */
     async getResourceCategoryAll(): Promise<Result<ResCategory[]>> {
         return this.requestT<Result<ResCategory[]>>('/api/res/all')
+    }
+
+
+    /**
+     * 
+     * 提交一个留言
+     * @param params 留言参数
+     */
+    async submitComment(params: any): Promise<Result<Comment>> {
+        return this.requestT<Result<Comment>>('/api/comment/add',params,'POST')
+    }
+
+    /**
+     * 查询评论列表
+     * @param params 查询参数
+     * @returns 查询结果
+     */
+    async findComment(params: SelectCommentParams) : Promise<Result<{
+        list: Comment[],
+        page: PagerModel
+    }>> {
+        return this.requestT<Result<{
+            list: Comment[],
+            page: PagerModel
+        }>>('/api/comment/find',params,'GET')
     }
 }
 

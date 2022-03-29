@@ -13,6 +13,8 @@ import { Friend } from "./model/friend";
 import { ResourceTreeModel } from "./model/ResourceTreeModel";
 import { ResourceCategoryType } from "./model/ResourceCategoryType";
 import { VersionSelectParamModel } from "./model/VersionSelectParamModel";
+import { SelectCommentParams } from "./model/param/SelectCommentParams";
+import { Comment } from "./model/Comment";
 /**
  * 接口访问类
  */
@@ -406,5 +408,20 @@ declare class DdServerApiByWeb {
      * 获取全部资源分类列表
      */
     getResourceCategoryAll(): Promise<Result<ResCategory[]>>;
+    /**
+     *
+     * 提交一个留言
+     * @param params 留言参数
+     */
+    submitComment(params: any): Promise<Result<Comment>>;
+    /**
+     * 查询评论列表
+     * @param params 查询参数
+     * @returns 查询结果
+     */
+    findComment(params: SelectCommentParams): Promise<Result<{
+        list: Comment[];
+        page: PagerModel;
+    }>>;
 }
 export default DdServerApiByWeb;
