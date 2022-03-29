@@ -12,5 +12,6 @@ export interface Comment {
     blog: BlogData | undefined;
     childComment: null;
     createDate: number;
+    avatarUrl: string | undefined;
     likeUsers: null;
 }
