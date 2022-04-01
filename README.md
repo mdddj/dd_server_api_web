@@ -16,62 +16,11 @@ yarn add dd_server_api_web
 
 # API 列表
 ```ts
-import { Page, PagerModel, Result } from "./utils/ResultUtil";
-import { User } from "./model/UserModel";
-import PushNewBlogParams from "./model/param/PushNewBlogParamsModel";
-import { BlogData, BlogListData, BlogPushNewResultData, Category } from "./model/result/BlogPushNewResultData";
-import { PageParam } from "./model/PageModel";
-import { ResCategory } from "./model/ResCategory";
-import { FileInfo } from "./model/FileInfo";
-import { PublishPostResult, ResourceModel } from "./model/ResourceModel";
-import { TextModel } from "./model/TextModel";
-import { ArchiveModel, Tag } from "./model/ArchiveModel";
-import { SystemPicter } from "./model/avater";
-import { Friend } from "./model/friend";
-import { ResourceTreeModel } from "./model/ResourceTreeModel";
-import { ResourceCategoryType } from "./model/ResourceCategoryType";
-import { VersionSelectParamModel } from "./model/VersionSelectParamModel";
-import { SelectCommentParams } from "./model/param/SelectCommentParams";
-import { Comment } from "./model/Comment";
-interface ErrorHandle {
-    error: (errorCode: number, errorMessage: string, data: any) => void;
-}
 /**
  * 接口访问类
  */
 declare class DdServerApiByWeb {
-    _host: string | undefined;
-    /**
-     * 鉴权token
-     */
-    _token: string | undefined;
-    set host(v: string);
-    get host(): string;
-    set token(v: string | undefined);
-    get token(): string | undefined;
-    _errorHandle: ErrorHandle | undefined;
-    set errHandle(handle: ErrorHandle);
-    get getErrHandle(): ErrorHandle | undefined;
-    /**
-     * 私有化类构造
-     * @constructor
-     * @private
-     */
-    private DdTaokeSdk;
-    static _instance: DdServerApiByWeb;
-    /**
-     * 接口实例
-     */
-    static getInstance(): DdServerApiByWeb;
-    createClient(): import("umi-request").RequestMethod<false>;
-    /**
-     * 封装通用的请求方法
-     * @param url   访问url
-     * @param data  请求参数
-     * @param method    请求方法
-     * @param requestType 请求方式
-     */
-    requestT<T>(url: string, data?: any, method?: 'GET' | 'POST' | 'DELETE', requestType?: 'form' | 'json'): Promise<T>;
+
     /**
      * 获取用户列表接口
      * @param pager 分页
