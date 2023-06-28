@@ -1,4 +1,4 @@
-export declare type SelectCommentParams = {
+export type SelectCommentParams = {
     page: number;
     findKey: string;
     type: string;

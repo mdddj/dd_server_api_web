@@ -1,8 +1,8 @@
 import DdTaokeSdk from "./index";
 
 let api  = DdTaokeSdk.getInstance()
-api.host = 'http://localhost'
+api.host = 'https://itbug.shop:9445'
 
-api.getPics(1).then(value => {
+api.getBlogList(1,10).then(value => {
     console.log(value)
 })

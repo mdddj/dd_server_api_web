@@ -1,4 +1,4 @@
-interface CreateOrUpdateDocDirectoryParam {
+export interface CreateOrUpdateDocDirectoryParam {
     name: string;
     parentNodeId: number;
     updateId?: number;

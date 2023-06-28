@@ -4,4 +4,4 @@
 //   import { Convert, ArchiveModel } from "./file";
 //
 //   const archiveModel = Convert.toArchiveModel(json);
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });

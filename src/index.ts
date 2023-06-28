@@ -6,17 +6,20 @@ import {BlogData, BlogListData, BlogPushNewResultData, Category} from "./model/r
 import {PageParam} from "./model/PageModel";
 import {ResCategory} from "./model/ResCategory";
 import {FileInfo} from "./model/FileInfo";
+
+import {CreateOrUpdateDocDirectoryParam} from './model/param/CreateOrUpdateDocDirectoryParam'
 import {PublishPostResult, ResourceModel} from "./model/ResourceModel";
 import {TextModel} from "./model/TextModel";
 import {ArchiveModel, Tag} from "./model/ArchiveModel";
 import {SystemPicter} from "./model/avater";
-import {extend} from "umi-request";
 import {Friend} from "./model/friend";
 import {ResourceTreeModel} from "./model/ResourceTreeModel";
 import {ResourceCategoryType} from "./model/ResourceCategoryType";
 import {VersionSelectParamModel} from "./model/VersionSelectParamModel";
 import { SelectCommentParams } from "./model/param/SelectCommentParams";
 import { Comment } from "./model/Comment";
+import axios, {AxiosStatic} from "axios";
+import * as console from "console";
 
 
 
@@ -83,32 +86,21 @@ class DdServerApiByWeb {
     }
 
 
-    createClient() {
-        let client = extend({});
+
+    createClient() : AxiosStatic {
+        let client = axios;
         let interceptors = client.interceptors
         if (this.token) {
             const authHeader = {
                 Authorization: this.token,
             };
-            interceptors.request.use((url: any, options: any) => {
-                return {
-                    url,
-                    options: {...options, headers: authHeader, interceptors: true,}
+            client.interceptors.request.use(null,null,{
+                runWhen: config => {
+                    config.headers['Authorization'] = this.token
+                    return true
                 }
-            }, {global: false})
-
+            })
         }
-        interceptors.response.use(async response => {
-            if(response.ok){
-                //请求成功
-                let data = await response.clone().json() as Result<any>
-                if(data.state!==200){
-                    console.log(data)
-                    this._errorHandle && this._errorHandle.error(data.state,data.message,data.data)
-                }
-            }
-            return response;
-        },{global : false})
         return client;
     }
 
@@ -126,13 +118,13 @@ class DdServerApiByWeb {
         let postData = method === 'POST' || method === 'DELETE' ? data : undefined
 
         let client = this.createClient()
-        return client<T>(`${this.host}${url}`, {
+        let response = await client.request<T>( {
+            url: `${this.host}${url}`,
             method: method ?? 'GET',
-            params: param,
-            data: postData,
-            requestType: requestType ??= 'json'
-
+            params: requestType == "form" ? param : undefined,
+            data: requestType == "json" ?  postData : undefined,
         })
+        return response.data
     }
 
     /**
@@ -151,7 +143,7 @@ class DdServerApiByWeb {
      * @param imageCode 图片验证码
      */
     async login(loginNumber: string, password: string, imageCode?: string): Promise<Result<string>> {
-        return this.requestT<Result<string>>('/api/user-public/login', {loginNumber, password, imageCode}, 'POST', 'form');
+        return this.requestT<Result<string>>('/api/user-public/login', {loginNumber, password, imageCode}, 'POST');
     }
 
     /**

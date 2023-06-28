@@ -4,7 +4,7 @@
 //   import { Convert, BlogPushNewResultData } from "./file";
 //
 //   const blogPushNewResultData = Convert.toBlogPushNewResultData(json);
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.Convert = void 0;
 // Converts JSON strings to/from your types
 var Convert = /** @class */ (function () {

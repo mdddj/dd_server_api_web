@@ -5,6 +5,7 @@ import { BlogData, BlogListData, BlogPushNewResultData, Category } from "./model
 import { PageParam } from "./model/PageModel";
 import { ResCategory } from "./model/ResCategory";
 import { FileInfo } from "./model/FileInfo";
+import { CreateOrUpdateDocDirectoryParam } from './model/param/CreateOrUpdateDocDirectoryParam';
 import { PublishPostResult, ResourceModel } from "./model/ResourceModel";
 import { TextModel } from "./model/TextModel";
 import { ArchiveModel, Tag } from "./model/ArchiveModel";
@@ -15,6 +16,7 @@ import { ResourceCategoryType } from "./model/ResourceCategoryType";
 import { VersionSelectParamModel } from "./model/VersionSelectParamModel";
 import { SelectCommentParams } from "./model/param/SelectCommentParams";
 import { Comment } from "./model/Comment";
+import { AxiosStatic } from "axios";
 interface ErrorHandle {
     error: (errorCode: number, errorMessage: string, data: any) => void;
 }
@@ -45,7 +47,7 @@ declare class DdServerApiByWeb {
      * 接口实例
      */
     static getInstance(): DdServerApiByWeb;
-    createClient(): import("umi-request").RequestMethod<false>;
+    createClient(): AxiosStatic;
     /**
      * 封装通用的请求方法
      * @param url   访问url

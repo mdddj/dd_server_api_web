@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var ServerUtil = /** @class */ (function () {
     function ServerUtil() {
         this.defaultHost = 'https://itbug.shop';
@@ -17,11 +17,11 @@ var ServerUtil = /** @class */ (function () {
         },
         set: function (value) {
             this._host = value;
-            console.log("\u521D\u59CB\u5316host\u6210\u529F,host is :  " + value);
+            console.log("\u521D\u59CB\u5316host\u6210\u529F,host is :  ".concat(value));
         },
         enumerable: false,
         configurable: true
     });
     return ServerUtil;
 }());
-exports["default"] = ServerUtil;
+exports.default = ServerUtil;

@@ -11,8 +11,8 @@ import {PageParam} from "./model/PageModel";
 import {BrandListModel} from "./model/result/BrandListModel";
 import {BrandDetailModel} from "./model/result/BrandDetailModel";
 import {Product} from "./model/ProductModel";
-import request from "umi-request";
 import {ProductListParam, ProductListResult} from "./model/param/ProductListParam";
+import axios from "axios";
 
 const TAOKE_API = '/tkapi/api/v1/dtk/apis';
 
@@ -67,7 +67,8 @@ class TaokeApi {
      */
     async requestT<T>(url: string, param?: any, taoke?: boolean): Promise<T> {
         return new Promise<T>(async (resolve, reject) => {
-            let result = await request<Result<string>>(`${(taoke ?? true) ? this.url : this._host}${url}`, {
+            let result = await axios.request<any,Result<string>>( {
+                url: `${(taoke ?? true) ? this.url : this._host}${url}`,
                 method: "GET",
                 params: param
             })

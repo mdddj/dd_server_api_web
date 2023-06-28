@@ -14,7 +14,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -44,7 +44,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 var ServerUtil_1 = __importDefault(require("./utils/ServerUtil"));
 var ResultUtil_1 = require("./utils/ResultUtil");
-var umi_request_1 = __importDefault(require("umi-request"));
+var axios_1 = __importDefault(require("axios"));
 var TAOKE_API = '/tkapi/api/v1/dtk/apis';
 var TaokeApi = /** @class */ (function () {
     function TaokeApi() {
@@ -98,7 +98,8 @@ var TaokeApi = /** @class */ (function () {
                         var result;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
-                                case 0: return [4 /*yield*/, (0, umi_request_1.default)("".concat((taoke !== null && taoke !== void 0 ? taoke : true) ? this.url : this._host).concat(url), {
+                                case 0: return [4 /*yield*/, axios_1.default.request({
+                                        url: "".concat((taoke !== null && taoke !== void 0 ? taoke : true) ? this.url : this._host).concat(url),
                                         method: "GET",
                                         params: param
                                     })];

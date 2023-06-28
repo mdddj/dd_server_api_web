@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -25,7 +14,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -51,7 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var ServerUtil_1 = __importDefault(require("./utils/ServerUtil"));
-var umi_request_1 = require("umi-request");
+var axios_1 = __importDefault(require("axios"));
 /**
  * 接口访问类
  */
@@ -108,37 +97,19 @@ var DdServerApiByWeb = /** @class */ (function () {
     };
     DdServerApiByWeb.prototype.createClient = function () {
         var _this = this;
-        var client = (0, umi_request_1.extend)({});
+        var client = axios_1.default;
         var interceptors = client.interceptors;
         if (this.token) {
-            var authHeader_1 = {
+            var authHeader = {
                 Authorization: this.token,
             };
-            interceptors.request.use(function (url, options) {
-                return {
-                    url: url,
-                    options: __assign(__assign({}, options), { headers: authHeader_1, interceptors: true })
-                };
-            }, { global: false });
-        }
-        interceptors.response.use(function (response) { return __awaiter(_this, void 0, void 0, function () {
-            var data;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!response.ok) return [3 /*break*/, 2];
-                        return [4 /*yield*/, response.clone().json()];
-                    case 1:
-                        data = _a.sent();
-                        if (data.state !== 200) {
-                            console.log(data);
-                            this._errorHandle && this._errorHandle.error(data.state, data.message, data.data);
-                        }
-                        _a.label = 2;
-                    case 2: return [2 /*return*/, response];
+            client.interceptors.request.use(null, null, {
+                runWhen: function (config) {
+                    config.headers['Authorization'] = _this.token;
+                    return true;
                 }
             });
-        }); }, { global: false });
+        }
         return client;
     };
     /**
@@ -150,18 +121,24 @@ var DdServerApiByWeb = /** @class */ (function () {
      */
     DdServerApiByWeb.prototype.requestT = function (url, data, method, requestType) {
         return __awaiter(this, void 0, void 0, function () {
-            var param, postData, client;
+            var param, postData, client, response;
             return __generator(this, function (_a) {
-                method !== null && method !== void 0 ? method : (method = 'GET');
-                param = method === 'GET' ? data : undefined;
-                postData = method === 'POST' || method === 'DELETE' ? data : undefined;
-                client = this.createClient();
-                return [2 /*return*/, client("".concat(this.host).concat(url), {
-                        method: method !== null && method !== void 0 ? method : 'GET',
-                        params: param,
-                        data: postData,
-                        requestType: requestType !== null && requestType !== void 0 ? requestType : (requestType = 'json')
-                    })];
+                switch (_a.label) {
+                    case 0:
+                        method !== null && method !== void 0 ? method : (method = 'GET');
+                        param = method === 'GET' ? data : undefined;
+                        postData = method === 'POST' || method === 'DELETE' ? data : undefined;
+                        client = this.createClient();
+                        return [4 /*yield*/, client.request({
+                                url: "".concat(this.host).concat(url),
+                                method: method !== null && method !== void 0 ? method : 'GET',
+                                params: requestType == "form" ? param : undefined,
+                                data: requestType == "json" ? postData : undefined,
+                            })];
+                    case 1:
+                        response = _a.sent();
+                        return [2 /*return*/, response.data];
+                }
             });
         });
     };
@@ -186,7 +163,7 @@ var DdServerApiByWeb = /** @class */ (function () {
     DdServerApiByWeb.prototype.login = function (loginNumber, password, imageCode) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.requestT('/api/user-public/login', { loginNumber: loginNumber, password: password, imageCode: imageCode }, 'POST', 'form')];
+                return [2 /*return*/, this.requestT('/api/user-public/login', { loginNumber: loginNumber, password: password, imageCode: imageCode }, 'POST')];
             });
         });
     };

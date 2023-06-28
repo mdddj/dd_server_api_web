@@ -1,6 +1,6 @@
 
 
-interface CreateOrUpdateDocDirectoryParam {
+export interface CreateOrUpdateDocDirectoryParam {
     //目录名
     name: string
 
