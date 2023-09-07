@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 exports.__esModule = true;
-var index_1 = require("./index");
-var api = index_1["default"].getInstance();
+var index_1 = require('./index');
+var api = index_1['default'].getInstance();
 // api.host = 'https://itbug.shop'
 api.host = 'http://localhost';
 api.token = '12121212';
@@ -23,6 +23,8 @@ api.token = '12121212';
 //     console.log(value)
 // })
 api.getPics(1).then(function (value) {
-    console.log(value);
+  console.log(value);
 });
-api.getVersionList({ page: 1, pageSize: 12 }).then(function (value) { return console.log(value); });
+api.getVersionList({ page: 1, pageSize: 12 }).then(function (value) {
+  return console.log(value);
+});

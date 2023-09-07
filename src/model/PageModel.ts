@@ -9,9 +9,7 @@ export interface AntdTablePageParams {
   pageSize: number | undefined;
 }
 
-export const coverAntdPageParamModelToRequestParam = <T>(
-  params: AntdTablePageParams,
-): PageParam => {
+export const coverAntdPageParamModelToRequestParam = <T>(params: AntdTablePageParams): PageParam => {
   return {
     page: (params.current ?? 1) - 1,
     pageSize: params.pageSize ?? 10,

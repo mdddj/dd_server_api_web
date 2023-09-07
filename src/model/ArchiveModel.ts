@@ -4,8 +4,7 @@
 //
 //   const archiveModel = Convert.toArchiveModel(json);
 
-
-import {Category} from "./result/BlogPushNewResultData";
+import { Category } from './result/BlogPushNewResultData';
 
 export interface ArchiveModel {
   blogCount: number;
@@ -14,22 +13,22 @@ export interface ArchiveModel {
   categoryList: Category[];
   tags: Tag[];
   monthsCounts: MonthsCount[];
-  archiveModels: MonthsCount[]
+  archiveModels: MonthsCount[];
 }
 
 export interface MonthsCount {
   count: number;
   months: string;
-  blogs: MonthsBlogModel[] | undefined
+  blogs: MonthsBlogModel[] | undefined;
 }
 
 export interface MonthsBlogModel {
   id: number;
   title: string;
-  createTime: number
+  createTime: number;
 }
 
 export interface Tag {
   id: number;
-  name: string
+  name: string;
 }

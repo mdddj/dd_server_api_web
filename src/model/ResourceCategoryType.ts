@@ -1,4 +1,4 @@
 export interface ResourceCategoryType {
-    type:  string;
-    count: number;
+  type: string;
+  count: number;
 }

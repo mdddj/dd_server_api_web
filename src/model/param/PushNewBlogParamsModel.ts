@@ -15,7 +15,7 @@ export default class PushNewBlogParams {
   // 文章缩略图
   thumbnail?: string;
 
-  id?: number
+  id?: number;
 
   constructor(title: string, content: string, tags: string[], categoryId: number) {
     this.title = title;

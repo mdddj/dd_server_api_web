@@ -1,0 +1,1 @@
+{"version":3,"file":"PageModel.js","sourceRoot":"","sources":["../../src/model/PageModel.ts"],"names":[],"mappings":";;;AAWO,IAAM,qCAAqC,GAAG,UAAI,MAA2B;;IAClF,OAAO;QACL,IAAI,EAAE,CAAC,MAAA,MAAM,CAAC,OAAO,mCAAI,CAAC,CAAC,GAAG,CAAC;QAC/B,QAAQ,EAAE,MAAA,MAAM,CAAC,QAAQ,mCAAI,EAAE;KACnB,CAAC;AACjB,CAAC,CAAC;AALW,QAAA,qCAAqC,yCAKhD"}

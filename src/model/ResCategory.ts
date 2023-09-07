@@ -1,4 +1,4 @@
-import {User} from "./UserModel";
+import { User } from './UserModel';
 
 export interface ResCategory {
   id?: number;
